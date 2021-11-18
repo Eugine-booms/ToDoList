@@ -1,17 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ToDoList.BL.Models;
 
 namespace ToDoList.BL.Services
 {
-    public class FileIOServices<T> : IFileIOServices<T> 
+    public class FileIOServices<T> : IFileIOServices<T> where T: new()
     {
         private readonly string PATH;
 
@@ -22,7 +15,7 @@ namespace ToDoList.BL.Services
             {
                 File.Create(path);
             }
-            
+
         }
 
         public T LoadData()
@@ -35,10 +28,11 @@ namespace ToDoList.BL.Services
             }
             using (var sr = File.OpenText(PATH))
             {
-                
+
                 var input = sr.ReadToEnd();
 
                 var result = JsonConvert.DeserializeObject<T>(input);
+                if(result == null) return new T();
                 return result;
             }
         }
