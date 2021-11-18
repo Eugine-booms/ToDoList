@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ToDoList.BL.Models
 {
@@ -13,17 +9,21 @@ namespace ToDoList.BL.Models
         private bool _isDone;
         private string _text;
         public DateTime CreationDate { get; set; } = DateTime.Now;
-        public bool IsDone { get => _isDone; set
+        public bool IsDone
+        {
+            get => _isDone; set
             {
                 _isDone = value;
                 OnPropertyChanged(nameof(IsDone));
             }
         }
 
-        public string Text { get => _text; 
+        public string Text
+        {
+            get => _text;
             set
             {
-               _text = value;
+                _text = value;
                 OnPropertyChanged(nameof(Text));
             }
         }

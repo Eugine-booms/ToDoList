@@ -7,10 +7,10 @@ namespace ToDoList.ViewModel
 {
     internal class ToDoViewModel : ViewModelBase
     {
-        private IFileIOServices<BindingList<ToDoModel>> fileIOServices;
+        private readonly IFileIOServices<BindingList<ToDoModel>> fileIOServices;
 
         private BindingList<ToDoModel> todoList = new BindingList<ToDoModel>();
-        public BindingList<ToDoModel> TodoList { get=>todoList; set=>Set(ref todoList, value, nameof(TodoList)); }
+        public BindingList<ToDoModel> TodoList { get => todoList; set => Set(ref todoList, value, nameof(TodoList)); }
 
         public ToDoViewModel()
         {

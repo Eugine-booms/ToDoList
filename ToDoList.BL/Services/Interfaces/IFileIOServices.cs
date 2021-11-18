@@ -1,7 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using ToDoList.BL.Models;
-
-namespace ToDoList.BL.Services
+﻿namespace ToDoList.BL.Services
 {
     public interface IFileIOServices<T>
     {

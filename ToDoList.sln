@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoList", "ToDoList.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoList.BL", "ToDoList.BL\ToDoList.BL.csproj", "{79127C2A-CB98-4EE8-98B9-F181687DAADC}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup1", "Setup1\Setup1.vdproj", "{77BD886E-F8F7-4779-953F-541A49410C2D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,8 @@ Global
 		{79127C2A-CB98-4EE8-98B9-F181687DAADC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79127C2A-CB98-4EE8-98B9-F181687DAADC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79127C2A-CB98-4EE8-98B9-F181687DAADC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77BD886E-F8F7-4779-953F-541A49410C2D}.Debug|Any CPU.ActiveCfg = Debug
+		{77BD886E-F8F7-4779-953F-541A49410C2D}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,21 +7,31 @@
         xmlns:vm="clr-namespace:ToDoList.ViewModel" 
         d:DataContext="{d:DesignInstance Type=vm:ToDoViewModel}"
         mc:Ignorable="d"
-        Title="ToDoList" Height="450" Width="800">
+        Title="ToDoList" Height="450" Width="800"
+        Background="{DynamicResource MaterialDesignPaper}">
     
     <DockPanel>
         <TextBox DockPanel.Dock="Top" Text="{Binding Text}"/>
         <DataGrid ItemsSource="{Binding TodoList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Дата"
-                                    Binding="{Binding Path=CreationDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                    Width="1*" IsReadOnly="True" />
-                <DataGridCheckBoxColumn Header="Выполнение"
-                                        Binding="{Binding IsDone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                        Width="1*" IsReadOnly="False"/>
-                <DataGridTextColumn Header="Задача" 
-                                    Binding="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                    Width="5*" IsReadOnly="False"/>
+                <DataGridTextColumn Binding="{Binding Path=CreationDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                    Width="1.2*" IsReadOnly="True" >
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="Дата" FontSize="15" FontWeight="Bold"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                <DataGridCheckBoxColumn Binding="{Binding IsDone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                        Width="1*" IsReadOnly="False">
+                    <DataGridCheckBoxColumn.Header>
+                        <TextBlock Text="Выполнение" FontSize="15" FontWeight="Bold"/>
+                    </DataGridCheckBoxColumn.Header>
+                </DataGridCheckBoxColumn>
+                <DataGridTextColumn Binding="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                    Width="5*" IsReadOnly="False">
+                    <DataGridTextColumn.Header >
+                        <TextBlock HorizontalAlignment="Center" Text="Задача" FontSize="15" FontWeight="Bold"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </DockPanel>
