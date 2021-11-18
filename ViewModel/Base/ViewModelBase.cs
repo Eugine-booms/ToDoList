@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Markup;
 
 namespace ToDoList.ViewModel.Base
 {
-    class ViewModelBase : MarkupExtension, INotifyPropertyChanged
+    internal class ViewModelBase : MarkupExtension, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -23,7 +19,7 @@ namespace ToDoList.ViewModel.Base
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
         }
 
-       
+
 
         protected virtual bool Set<T>(ref T field, T value, [CallerMemberName] string PropertyName = null)
         {
@@ -32,6 +28,6 @@ namespace ToDoList.ViewModel.Base
             OnPropertyChanged(PropertyName);
             return true;
         }
-        
+
     }
 }
