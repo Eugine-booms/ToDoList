@@ -4,8 +4,10 @@ using System.Runtime.CompilerServices;
 
 namespace ToDoList.BL.Models
 {
+    [Serializable]
     public class ToDoModel : INotifyPropertyChanged
     {
+       
         private bool _isDone;
         private string _text;
         private DateTime deadLine = DateTime.Now;
