@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Linq;
 using ToDoList.BL.Models;
 using ToDoList.BL.Services;
 using ToDoList.ViewModel.Base;
@@ -14,11 +15,12 @@ namespace ToDoList.ViewModel
 
         public ToDoViewModel()
         {
-            fileIOServices = new FileIOServices<BindingList<ToDoModel>>("todoList.txt");
-            todoList = fileIOServices.LoadData();
+            fileIOServices = new FileIOServices<BindingList<ToDoModel>>("./Data/data.json");
+            todoList=fileIOServices.LoadData();
             todoList.ListChanged += TodoList_ListChanged;
         }
 
+        // ToDO: Привязать статус бар прогресс бар к разности дел - завершенные
         private void TodoList_ListChanged(object sender, ListChangedEventArgs e)
         {
             if (e.ListChangedType == ListChangedType.ItemAdded

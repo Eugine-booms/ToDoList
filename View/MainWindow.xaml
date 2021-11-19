@@ -3,36 +3,141 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:model="clr-namespace:ToDoList.BL.Models;assembly=ToDoList.BL"
         xmlns:local="clr-namespace:ToDoList"
-        xmlns:vm="clr-namespace:ToDoList.ViewModel" 
+        xmlns:vm="clr-namespace:ToDoList.ViewModel" xmlns:cmd="clr-namespace:ToDoList.Command"
         d:DataContext="{d:DesignInstance Type=vm:ToDoViewModel}"
+        DataContext="{vm:ToDoViewModel}"
         mc:Ignorable="d"
         Title="ToDoList" Height="450" Width="800"
-        Background="{DynamicResource MaterialDesignPaper}">
-    
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
     <DockPanel>
-        <TextBox DockPanel.Dock="Top" Text="{Binding Text}"/>
-        <DataGrid ItemsSource="{Binding TodoList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" >
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Path=CreationDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+        <Menu DockPanel.Dock="Top" FontSize="14">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Выход">
+                    <MenuItem.Command>
+                        <cmd:ExitCommand/>
+                    </MenuItem.Command>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Помощь">
+                <MenuItem Header="О программе"/>
+            </MenuItem>
+        </Menu>
+        <StatusBar DockPanel.Dock="Bottom">
+            <!--<StatusBarItem MinWidth="150" MaxWidth="300">
+                <TextBlock Text="{Binding Path=Status}"/>
+            </StatusBarItem>-->
+            <StatusBarItem>
+                <ProgressBar HorizontalAlignment="Stretch" Height="14" Value="30" />
+            </StatusBarItem>
+        </StatusBar>
+
+        <!--<DataGrid ItemsSource="{Binding TodoList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Path=CreationDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                     Width="1.2*" IsReadOnly="True" >
-                    <DataGridTextColumn.Header>
-                        <TextBlock Text="Дата" FontSize="15" FontWeight="Bold"/>
-                    </DataGridTextColumn.Header>
-                </DataGridTextColumn>
-                <DataGridCheckBoxColumn Binding="{Binding IsDone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                        Width="1*" IsReadOnly="False">
-                    <DataGridCheckBoxColumn.Header>
-                        <TextBlock Text="Выполнение" FontSize="15" FontWeight="Bold"/>
-                    </DataGridCheckBoxColumn.Header>
-                </DataGridCheckBoxColumn>
-                <DataGridTextColumn Binding="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                    Width="5*" IsReadOnly="False">
-                    <DataGridTextColumn.Header >
-                        <TextBlock HorizontalAlignment="Center" Text="Задача" FontSize="15" FontWeight="Bold"/>
-                    </DataGridTextColumn.Header>
-                </DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+                            <DataGridTextColumn.Header>
+                                <TextBlock Text="Дата" FontSize="15" FontWeight="Bold"/>
+                            </DataGridTextColumn.Header>
+                        </DataGridTextColumn>
+                        <DataGridCheckBoxColumn Binding="{Binding IsDone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                        Width="1.4*" IsReadOnly="False" >
+                            <DataGridCheckBoxColumn.Header>
+                                <TextBlock Text="Выполнение" FontSize="15" FontWeight="Bold"/>
+                            </DataGridCheckBoxColumn.Header>
+                        </DataGridCheckBoxColumn>
+                        <DataGridTextColumn Binding="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                    Width="4*" IsReadOnly="False" >
+                            <DataGridTextColumn.Header >
+                                <TextBlock HorizontalAlignment="Center" Text="Задача" FontSize="15" FontWeight="Bold"/>
+                            </DataGridTextColumn.Header>
+                        </DataGridTextColumn>
+                        <DataGridTemplateColumn Header="Дата завершения" IsReadOnly="False" Width="1.9*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                -->
+        <!--<DataTemplate DataType="decanat:Student">
+                                <TextBlock Text="{Binding Birthday, StringFormat='dd.MM.yyyy'}"/>
+                            </DataTemplate>-->
+        <!--
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Deadline}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate >
+                                    <DatePicker SelectedDate="{Binding Deadline}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>-->
+        <GroupBox Header="ToDo">
+            <GroupBox.Resources>
+                <CollectionViewSource x:Key="ToDoViewSource" 
+                                                      x:Name="ToDoViewSource"
+                                                      Source="{Binding TodoList}"
+                                                      />
+            </GroupBox.Resources>
+            <DataGrid x:Name="dataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Source={StaticResource ToDoViewSource}}">
+                <DataGrid.Resources>
+                    <ResourceDictionary>
+                        <ResourceDictionary.MergedDictionaries>
+                            <ResourceDictionary Source="../Resources/Styles/TexBoxStrikethrough.xaml"/>
+                        </ResourceDictionary.MergedDictionaries>
+                    </ResourceDictionary>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn  Width="auto" IsReadOnly="True" 
+                                             Header="Дата создания" 
+                                             SortMemberPath="CreationDate" >
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=CreationDate}" Style="{StaticResource TextBlockStrikethrough}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Выполнение"
+                                            Width="auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox Content="Выполнено" IsChecked="{Binding Path=IsDone, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Задача" 
+                                            SortMemberPath="Text"
+                                            Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=Text}" Style="{StaticResource TextBlockStrikethrough}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate >
+                            <DataTemplate>
+                                <TextBox Text="{Binding Path=Text}" Style="{StaticResource TextBoxStrikethrough}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Дата завершения" 
+                                            SortMemberPath="CreationDate"
+                                            Width="auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate >
+                                <TextBlock Text="{Binding Path=Deadline, StringFormat='dd/MM/yyyy'}" Style="{StaticResource TextBlockStrikethrough}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <DatePicker SelectedDate="{Binding Deadline}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+        
     </DockPanel>
+
 </Window>
