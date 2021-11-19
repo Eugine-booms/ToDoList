@@ -74,48 +74,51 @@
                     </DataGrid.Columns>
                 </DataGrid>-->
                 <GroupBox Header="ToDo">
-                    <DataGrid x:Name="dataGrid" AutoGenerateColumns="False" ItemsSource="{Binding TodoList}">
+                    <GroupBox.Resources>
+                        <CollectionViewSource x:Key="ToDoViewSource" 
+                                                      x:Name="ToDoViewSource"
+                                                      Source="{Binding TodoList}"
+                                                      />
+                    </GroupBox.Resources>
+                    <DataGrid x:Name="dataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Source={StaticResource ToDoViewSource}}">
                         <DataGrid.Resources>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="TextDecorations" Value="None"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=IsDone}" Value="true">
-                                        <Setter Property="TextDecorations" Value="Strikethrough"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
+                            <ResourceDictionary>
+                                <ResourceDictionary.MergedDictionaries>
+                                    <ResourceDictionary Source="../Resources/Styles/TexBoxStrikethrough.xaml"/>
+                                </ResourceDictionary.MergedDictionaries>
+                            </ResourceDictionary>
                         </DataGrid.Resources>
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Header="Дата создания" SortMemberPath="CreationDate" >
+                            <DataGridTemplateColumn  IsReadOnly="True" Header="Дата создания" SortMemberPath="CreationDate" >
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding Path=CreationDate}"/>
+                                        <TextBlock Text="{Binding Path=CreationDate}" Style="{StaticResource TextBlockStrikethrough}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTemplateColumn>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <CheckBox IsChecked="{Binding Path=IsDone}"/>
+                                        <CheckBox IsChecked="{Binding Path=IsDone, UpdateSourceTrigger=PropertyChanged}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTemplateColumn Header="Задача" SortMemberPath="Text">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Path=Text}"/>
+                                        <TextBlock Text="{Binding Path=Text}" Style="{StaticResource TextBlockStrikethrough}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                                 <DataGridTemplateColumn.CellEditingTemplate >
                                     <DataTemplate>
-                                        <TextBox Text="{Binding Path=Text}" />
+                                        <TextBox Text="{Binding Path=Text}" Style="{StaticResource TextBoxStrikethrough}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellEditingTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTemplateColumn Header="Дата завершения" SortMemberPath="CreationDate">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate >
-                                        <TextBlock Text="{Binding Path=Deadline, StringFormat='dd/MM/yyyy'}"/>
+                                        <TextBlock Text="{Binding Path=Deadline, StringFormat='dd/MM/yyyy'}" Style="{StaticResource TextBlockStrikethrough}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                                 <DataGridTemplateColumn.CellEditingTemplate>
@@ -125,53 +128,7 @@
                                 </DataGridTemplateColumn.CellEditingTemplate>
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
-
                     </DataGrid>
-                </GroupBox>
-            </TabItem>
-            <TabItem Header="2 попытка">
-                <GroupBox >
-                    <GroupBox.Header>
-                        <DataGrid HorizontalAlignment="Stretch">
-                            <DataGrid.Columns >
-                                <DataGridTextColumn Header="Дата" Width="1*" />
-                                <DataGridTextColumn Header="выполнение" Width="1*"/>
-                                <DataGridTextColumn Header="Задача" Width="1*"/>
-                                <DataGridTextColumn Header="Срок" Width="1*" />
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </GroupBox.Header>
-                    <ListBox HorizontalAlignment="Stretch"  Margin="0,30,0,30"
-                             ItemsSource="{Binding TodoList}"
-                             VirtualizingPanel.IsVirtualizing="True"
-                             VirtualizingPanel.VirtualizationMode="Recycling"
-                             VirtualizingPanel.IsContainerVirtualizable="True">
-                        <ListBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <VirtualizingStackPanel/>
-                            </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
-                        <ListBox.ItemContainerStyle>
-                            <Style TargetType="ListBoxItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                            </Style>
-                        </ListBox.ItemContainerStyle>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate DataType="decanat:Student">
-                                <Border BorderBrush="Blue" BorderThickness="1" CornerRadius="3" Padding="3">
-                                    <Border.CacheMode>
-                                        <BitmapCache/>
-                                    </Border.CacheMode>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBox Text="{Binding CreationDate, Mode=OneWay}" Margin="3" ToolTip="Дата создания" IsReadOnly="True" TextDecorations="Baseline" />
-                                        <CheckBox Content="Только честно" IsChecked="{Binding IsDone}" Margin="3" ToolTip="Выполнил или нет"/>
-                                        <TextBox Text="{Binding Text, TargetNullValue=--}" Margin="3" ToolTip="Описание задачи" TextDecorations="Strikethrough"/>
-                                        <TextBox Text="{Binding Deadline, Mode=TwoWay}" Margin="3" ToolTip="Дата завершения" TextDecorations="OverLine"/>
-                                    </StackPanel>
-                                </Border>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
                 </GroupBox>
             </TabItem>
         </TabControl>
