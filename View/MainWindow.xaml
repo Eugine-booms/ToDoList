@@ -3,36 +3,178 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:model="clr-namespace:ToDoList.BL.Models;assembly=ToDoList.BL"
         xmlns:local="clr-namespace:ToDoList"
-        xmlns:vm="clr-namespace:ToDoList.ViewModel" 
+        xmlns:vm="clr-namespace:ToDoList.ViewModel" xmlns:cmd="clr-namespace:ToDoList.Command"
         d:DataContext="{d:DesignInstance Type=vm:ToDoViewModel}"
+        DataContext="{vm:ToDoViewModel}"
         mc:Ignorable="d"
         Title="ToDoList" Height="450" Width="800"
-        Background="{DynamicResource MaterialDesignPaper}">
-    
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
     <DockPanel>
-        <TextBox DockPanel.Dock="Top" Text="{Binding Text}"/>
-        <DataGrid ItemsSource="{Binding TodoList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" >
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Path=CreationDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+        <Menu DockPanel.Dock="Top" FontSize="14">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Выход">
+                    <MenuItem.Command>
+                        <cmd:ExitCommand/>
+                    </MenuItem.Command>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Помощь">
+                <MenuItem Header="О программе"/>
+            </MenuItem>
+        </Menu>
+        <StatusBar DockPanel.Dock="Bottom">
+            <!--<StatusBarItem MinWidth="150" MaxWidth="300">
+                <TextBlock Text="{Binding Path=Status}"/>
+            </StatusBarItem>-->
+            <StatusBarItem>
+                <ProgressBar Width="120" Height="14" Value="30" />
+            </StatusBarItem>
+        </StatusBar>
+        <TabControl>
+            <TabItem Header="1 попытка">
+                
+                <!--<DataGrid ItemsSource="{Binding TodoList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Path=CreationDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                     Width="1.2*" IsReadOnly="True" >
-                    <DataGridTextColumn.Header>
-                        <TextBlock Text="Дата" FontSize="15" FontWeight="Bold"/>
-                    </DataGridTextColumn.Header>
-                </DataGridTextColumn>
-                <DataGridCheckBoxColumn Binding="{Binding IsDone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                        Width="1*" IsReadOnly="False">
-                    <DataGridCheckBoxColumn.Header>
-                        <TextBlock Text="Выполнение" FontSize="15" FontWeight="Bold"/>
-                    </DataGridCheckBoxColumn.Header>
-                </DataGridCheckBoxColumn>
-                <DataGridTextColumn Binding="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                    Width="5*" IsReadOnly="False">
-                    <DataGridTextColumn.Header >
-                        <TextBlock HorizontalAlignment="Center" Text="Задача" FontSize="15" FontWeight="Bold"/>
-                    </DataGridTextColumn.Header>
-                </DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+                            <DataGridTextColumn.Header>
+                                <TextBlock Text="Дата" FontSize="15" FontWeight="Bold"/>
+                            </DataGridTextColumn.Header>
+                        </DataGridTextColumn>
+                        <DataGridCheckBoxColumn Binding="{Binding IsDone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                        Width="1.4*" IsReadOnly="False" >
+                            <DataGridCheckBoxColumn.Header>
+                                <TextBlock Text="Выполнение" FontSize="15" FontWeight="Bold"/>
+                            </DataGridCheckBoxColumn.Header>
+                        </DataGridCheckBoxColumn>
+                        <DataGridTextColumn Binding="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                    Width="4*" IsReadOnly="False" >
+                            <DataGridTextColumn.Header >
+                                <TextBlock HorizontalAlignment="Center" Text="Задача" FontSize="15" FontWeight="Bold"/>
+                            </DataGridTextColumn.Header>
+                        </DataGridTextColumn>
+                        <DataGridTemplateColumn Header="Дата завершения" IsReadOnly="False" Width="1.9*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                --><!--<DataTemplate DataType="decanat:Student">
+                                <TextBlock Text="{Binding Birthday, StringFormat='dd.MM.yyyy'}"/>
+                            </DataTemplate>--><!--
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Deadline}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate >
+                                    <DatePicker SelectedDate="{Binding Deadline}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>-->
+                <GroupBox Header="ToDo">
+                    <DataGrid x:Name="dataGrid" AutoGenerateColumns="False" ItemsSource="{Binding TodoList}">
+                        <DataGrid.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextDecorations" Value="None"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsDone}" Value="true">
+                                        <Setter Property="TextDecorations" Value="Strikethrough"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Дата создания" SortMemberPath="CreationDate" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding Path=CreationDate}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsChecked="{Binding Path=IsDone}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Задача" SortMemberPath="Text">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=Text}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate >
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding Path=Text}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Дата завершения" SortMemberPath="CreationDate">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate >
+                                        <TextBlock Text="{Binding Path=Deadline, StringFormat='dd/MM/yyyy'}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <DatePicker SelectedDate="{Binding Deadline}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+                </GroupBox>
+            </TabItem>
+            <TabItem Header="2 попытка">
+                <GroupBox >
+                    <GroupBox.Header>
+                        <DataGrid HorizontalAlignment="Stretch">
+                            <DataGrid.Columns >
+                                <DataGridTextColumn Header="Дата" Width="1*" />
+                                <DataGridTextColumn Header="выполнение" Width="1*"/>
+                                <DataGridTextColumn Header="Задача" Width="1*"/>
+                                <DataGridTextColumn Header="Срок" Width="1*" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox.Header>
+                    <ListBox HorizontalAlignment="Stretch"  Margin="0,30,0,30"
+                             ItemsSource="{Binding TodoList}"
+                             VirtualizingPanel.IsVirtualizing="True"
+                             VirtualizingPanel.VirtualizationMode="Recycling"
+                             VirtualizingPanel.IsContainerVirtualizable="True">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="decanat:Student">
+                                <Border BorderBrush="Blue" BorderThickness="1" CornerRadius="3" Padding="3">
+                                    <Border.CacheMode>
+                                        <BitmapCache/>
+                                    </Border.CacheMode>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBox Text="{Binding CreationDate, Mode=OneWay}" Margin="3" ToolTip="Дата создания" IsReadOnly="True" TextDecorations="Baseline" />
+                                        <CheckBox Content="Только честно" IsChecked="{Binding IsDone}" Margin="3" ToolTip="Выполнил или нет"/>
+                                        <TextBox Text="{Binding Text, TargetNullValue=--}" Margin="3" ToolTip="Описание задачи" TextDecorations="Strikethrough"/>
+                                        <TextBox Text="{Binding Deadline, Mode=TwoWay}" Margin="3" ToolTip="Дата завершения" TextDecorations="OverLine"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </GroupBox>
+            </TabItem>
+        </TabControl>
     </DockPanel>
+
 </Window>
