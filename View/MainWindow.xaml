@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:model="clr-namespace:ToDoList.BL.Models;assembly=ToDoList.BL"
         xmlns:local="clr-namespace:ToDoList"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:vm="clr-namespace:ToDoList.ViewModel" xmlns:cmd="clr-namespace:ToDoList.Command"
         d:DataContext="{d:DesignInstance Type=vm:ToDoViewModel}"
         DataContext="{vm:ToDoViewModel}"
@@ -13,15 +14,21 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}">
     <DockPanel>
-        <Menu DockPanel.Dock="Top" FontSize="14">
+        <Menu DockPanel.Dock="Top" FontSize="14" Height="30">
+            <Menu.Resources>
+                <Style TargetType="MenuItem">
+                    <Setter Property="Margin" Value="2.5"/>
+                    <Setter Property="Height" Value="25"/>
+                </Style>
+            </Menu.Resources>
             <MenuItem Header="Файл">
-                <MenuItem Header="Выход">
+                <MenuItem Header="Выход" >
                     <MenuItem.Command>
                         <cmd:ExitCommand/>
                     </MenuItem.Command>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="Помощь">
+            <MenuItem Header="Помощь" >
                 <MenuItem Header="О программе"/>
             </MenuItem>
         </Menu>
@@ -73,12 +80,17 @@
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>-->
-        <GroupBox Header="ToDo">
+        <GroupBox >
+            <GroupBox.Header>
+                <DockPanel>
+                    <md:PackIcon Kind="ToDo" HorizontalAlignment="Left" Margin="2" Width="Auto"/>
+                    <TextBlock Text="ToDo" HorizontalAlignment="Left" Margin="2"/>
+                </DockPanel>
+            </GroupBox.Header>
             <GroupBox.Resources>
                 <CollectionViewSource x:Key="ToDoViewSource" 
-                                                      x:Name="ToDoViewSource"
-                                                      Source="{Binding TodoList}"
-                                                      />
+                                      x:Name="ToDoViewSource"
+                                      Source="{Binding TodoList}"/>
             </GroupBox.Resources>
             <DataGrid x:Name="dataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Source={StaticResource ToDoViewSource}}">
                 <DataGrid.Resources>
