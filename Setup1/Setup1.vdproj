@@ -3,7 +3,7 @@
 "VSVersion" = "3:800"
 "ProjectType" = "8:{978C614F-708E-4E1A-B201-565925725DBA}"
 "IsWebType" = "8:FALSE"
-"ProjectName" = "8:Setup1"
+"ProjectName" = "8:ToDoListSetup"
 "LanguageId" = "3:1049"
 "CodePage" = "3:1251"
 "UILanguageId" = "3:1049"
@@ -16,19 +16,13 @@
         "Entry"
         {
         "MsmKey" = "8:_1407E638A9D5CE91A9041A0342437F79"
-        "OwnerKey" = "8:_F0F200D219A8478B9C7A119B0E90ECCA"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_1F39BC45CA0B4CF2A3AE5228594B1975"
-        "OwnerKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_2FB319E6308640D88B7AE79A4A26DE7B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_25BF283FFC0660C39BC48195DED0127C"
-        "OwnerKey" = "8:_F0F200D219A8478B9C7A119B0E90ECCA"
+        "OwnerKey" = "8:_2FB319E6308640D88B7AE79A4A26DE7B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -40,13 +34,7 @@
         "Entry"
         {
         "MsmKey" = "8:_2DCA4B3D58A8B7FC864E73F83CC3518B"
-        "OwnerKey" = "8:_F0F200D219A8478B9C7A119B0E90ECCA"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_2DCA4B3D58A8B7FC864E73F83CC3518B"
-        "OwnerKey" = "8:_1F39BC45CA0B4CF2A3AE5228594B1975"
+        "OwnerKey" = "8:_2FB319E6308640D88B7AE79A4A26DE7B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -57,26 +45,20 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_2FB319E6308640D88B7AE79A4A26DE7B"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_4D8DF4C4020D35225D6107BC5A188E59"
-        "OwnerKey" = "8:_F0F200D219A8478B9C7A119B0E90ECCA"
+        "OwnerKey" = "8:_2FB319E6308640D88B7AE79A4A26DE7B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_84CFAB09670AAF4705BCE971357F202A"
-        "OwnerKey" = "8:_F0F200D219A8478B9C7A119B0E90ECCA"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_A9E062A884194B7ACB24269D0973BC92"
-        "OwnerKey" = "8:_1F39BC45CA0B4CF2A3AE5228594B1975"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_F0F200D219A8478B9C7A119B0E90ECCA"
-        "OwnerKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_2FB319E6308640D88B7AE79A4A26DE7B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -88,19 +70,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_1F39BC45CA0B4CF2A3AE5228594B1975"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A9E062A884194B7ACB24269D0973BC92"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F0F200D219A8478B9C7A119B0E90ECCA"
+        "OwnerKey" = "8:_2FB319E6308640D88B7AE79A4A26DE7B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -145,15 +115,23 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:Release\\Setup1.msi"
+        "OutputFilename" = "8:Release\\ToDoList.msi"
         "PackageFilesAs" = "3:2"
-        "PackageFileSize" = "3:-2147483648"
+        "PackageFileSize" = "3:0"
         "CabType" = "3:1"
         "Compression" = "3:2"
         "SignOutput" = "11:FALSE"
@@ -161,6 +139,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -345,37 +339,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A9E062A884194B7ACB24269D0973BC92"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
-                "ScatterAssemblies"
-                {
-                    "_A9E062A884194B7ACB24269D0973BC92"
-                    {
-                    "Name" = "8:System.Net.Http.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:System.Net.Http.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_7D0E0C4CFAAB43BCAB2EAD91F6BDB3D1"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
         }
         "FileType"
         {
@@ -433,7 +396,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Setup1"
         "ProductCode" = "8:{40D807CA-8656-404B-8835-098E18C56C13}"
-        "PackageCode" = "8:{2C4D10E4-9F4D-461A-869D-1C042BB2460B}"
+        "PackageCode" = "8:{02492B1B-B1C3-4B81-8287-433B21FE84DA}"
         "UpgradeCode" = "8:{1A0278D7-A66F-432C-83FF-2617DB978583}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -952,35 +915,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_1F39BC45CA0B4CF2A3AE5228594B1975"
-            {
-            "SourcePath" = "8:..\\ToDoList.BL\\obj\\Release\\ToDoList.BL.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_7D0E0C4CFAAB43BCAB2EAD91F6BDB3D1"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:Built"
-            "OutputProjectGuid" = "8:{79127C2A-CB98-4EE8-98B9-F181687DAADC}"
-            "ShowKeyOutput" = "11:TRUE"
-                "ExcludeFilters"
-                {
-                }
-            }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_F0F200D219A8478B9C7A119B0E90ECCA"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_2FB319E6308640D88B7AE79A4A26DE7B"
             {
             "SourcePath" = "8:..\\obj\\Release\\ToDoList.exe"
             "TargetName" = "8:"
