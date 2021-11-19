@@ -8,7 +8,17 @@ namespace ToDoList.BL.Models
     {
         private bool _isDone;
         private string _text;
+        private DateTime deadLine = DateTime.Now;
         public DateTime CreationDate { get; set; } = DateTime.Now;
+        public DateTime Deadline
+        {
+            get => deadLine;
+            set
+            {
+                deadLine = value;
+                OnPropertyChanged(nameof(Deadline));
+            }
+        }
         public bool IsDone
         {
             get => _isDone; set
