@@ -23,6 +23,7 @@ namespace ToDoList.BL.Models
         {
             get => _isDone; set
             {
+                if (value) Deadline = DateTime.Now;
                 _isDone = value;
                 OnPropertyChanged(nameof(IsDone));
             }
