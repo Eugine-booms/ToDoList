@@ -15,7 +15,7 @@ namespace ToDoList.ViewModel
 
         public ToDoViewModel()
         {
-            fileIOServices = new FileIOServices<BindingList<ToDoModel>>("./Data/data.json");
+            fileIOServices = new FileIOServices<BindingList<ToDoModel>>("data.json");
             todoList=fileIOServices.LoadData();
             todoList.ListChanged += TodoList_ListChanged;
         }
