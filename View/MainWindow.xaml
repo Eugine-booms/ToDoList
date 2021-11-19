@@ -37,7 +37,7 @@
                 <TextBlock Text="{Binding Path=Status}"/>
             </StatusBarItem>-->
             <StatusBarItem>
-                <ProgressBar HorizontalAlignment="Stretch" Height="14" Value="30" />
+                <ProgressBar  Width="500" Height="14" Value="{Binding ProgressBarProgress}"/>
             </StatusBarItem>
         </StatusBar>
 

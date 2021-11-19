@@ -30,9 +30,28 @@ namespace ToDoList.ViewModel
             {
                 if (sender is BindingList<ToDoModel> model)
                 {
+                    ProgressBarProgress = ProgressBarProgresPercent();
                     fileIOServices.SaveData(model);
                 }
             }
+        }
+
+
+        #region ProgressBarProgress : int  - Процент заполнения прогрессбара
+        ///<summary> Процент заполнения прогрессбара
+        private int _ProgressBarProgress;
+        ///<summary> Процент заполнения прогрессбара
+        public int ProgressBarProgress
+        {
+            get => ProgressBarProgresPercent();
+            set => Set(ref _ProgressBarProgress, value);
+        }
+        #endregion
+
+        private int ProgressBarProgresPercent()
+        {
+            var chekedCount = TodoList.Count(x=>x.IsDone==true);
+            return chekedCount * 100 / TodoList.Count;
         }
 
 
