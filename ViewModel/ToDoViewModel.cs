@@ -1,41 +1,49 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using ToDoList.BL.Models;
 using ToDoList.BL.Services;
 using ToDoList.ViewModel.Base;
+using System.Windows.Data;
+using System;
+using System.Collections.Specialized;
+using System.Collections.Generic;
+using ToDoList.BL.Models.Services;
 
 namespace ToDoList.ViewModel
 {
     internal class ToDoViewModel : ViewModelBase
     {
-        private readonly IFileIOServices<BindingList<ToDoModel>> fileIOServices;
+        private readonly IFileIOServices <List<ToDoModel>> fileIOServices;
 
-        private BindingList<ToDoModel> todoList = new BindingList<ToDoModel>();
-        public BindingList<ToDoModel> TodoList { get => todoList; set => Set(ref todoList, value, nameof(TodoList)); }
-
+        private ObservableCollectionEx<ToDoModel> todoList;
+        public ObservableCollectionEx<ToDoModel> TodoList 
+        { 
+            get => todoList; 
+            set 
+            { 
+                Set(ref todoList, value, nameof(TodoList));
+                OnPropertyChanged(nameof(TodoList));
+            } 
+        }
+       
         public ToDoViewModel()
         {
-            fileIOServices = new FileIOServices<BindingList<ToDoModel>>("data.json");
-            todoList=fileIOServices.LoadData();
-            todoList.ListChanged += TodoList_ListChanged;
+            fileIOServices = new FileIOServices<List<ToDoModel>>("data.json");
+            var obserrModelList = fileIOServices.LoadData();
+            if (obserrModelList is null)
+                TodoList = new ObservableCollectionEx<ToDoModel>();
+            else
+                TodoList = new ObservableCollectionEx<ToDoModel>(obserrModelList);
+            todoList.CollectionChanged += TodoList_CollectionChanged;
+           
         }
 
-        // ToDO: Привязать статус бар прогресс бар к разности дел - завершенные
-        private void TodoList_ListChanged(object sender, ListChangedEventArgs e)
+        private void TodoList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (e.ListChangedType == ListChangedType.ItemAdded
-                || e.ListChangedType == ListChangedType.ItemDeleted
-                || e.ListChangedType == ListChangedType.ItemChanged
-                || e.ListChangedType == ListChangedType.ItemMoved)
-            {
-                if (sender is BindingList<ToDoModel> model)
-                {
-                    ProgressBarProgress = ProgressBarProgresPercent();
-                    fileIOServices.SaveData(model);
-                }
-            }
+            fileIOServices.SaveData(TodoList.ToList());
+            
         }
-
 
         #region ProgressBarProgress : int  - Процент заполнения прогрессбара
         ///<summary> Процент заполнения прогрессбара
@@ -50,26 +58,52 @@ namespace ToDoList.ViewModel
 
         private int ProgressBarProgresPercent()
         {
+            if (TodoList.Count == 0) return 1;
             var chekedCount = TodoList.Count(x=>x.IsDone==true);
             return chekedCount * 100 / TodoList.Count;
         }
 
 
-        #region text : string  - Text
-        ///<summary> Text
-        private string _text;
-        ///<summary> Text
-        public string Text
+        #region  Сортировка 
+
+        #region TaskFilter : string  - TaskFilter
+        ///<summary> TaskFilter
+        private string _taskFilter;
+        ///<summary> TaskFilter
+        public string TaskFilter
         {
-            get => _text;
-            set => Set(ref _text, value);
+            get => _taskFilter;
+            set
+            {
+                if (!Set(ref _taskFilter, value)) return;
+                list.View.Refresh();
+            }
         }
         #endregion
+        private CollectionViewSource list = new CollectionViewSource();
+        public ICollectionView List => list?.View;
 
 
+        private void ToDoViewSource_Filter(object sender, FilterEventArgs e)
+        {
+            e.Accepted = true;
+            if (!(e.Item is ToDoModel model))
+            {
+                e.Accepted = false;
+                return;
+            }
+            if (model.Text is null)
+            {
+                e.Accepted = false;
+                return;
+            }
+            var searchText = TaskFilter;
+            if (string.IsNullOrWhiteSpace(searchText)) return;
+            if (model.Text.ToLower().Contains(searchText.Trim(' ').ToLower())) return;
+            e.Accepted = false;
+        }
 
-
-
+        #endregion
 
 
 

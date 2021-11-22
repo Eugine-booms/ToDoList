@@ -46,7 +46,7 @@ namespace ToDoList.BL.Models.Services
         {
             //This will get called when the property of an object inside the collection changes - note you must make it a 'reset' - dunno why
             NotifyCollectionChangedEventArgs args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
-            OnCollectionChanged(args);
+            this.OnCollectionChanged(args);
         }
     }
 
