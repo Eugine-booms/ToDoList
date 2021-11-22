@@ -13,7 +13,7 @@ namespace ToDoList.BL.Services
             PATH = path ?? throw new ArgumentNullException(nameof(path));
             if (!File.Exists(path))
             {
-                    Directory.CreateDirectory("Data");
+                    //Directory.CreateDirectory("Data");
                     File.Create(path).Dispose();
             }
 
