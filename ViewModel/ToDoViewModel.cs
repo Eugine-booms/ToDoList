@@ -31,10 +31,8 @@ namespace ToDoList.ViewModel
         {
             fileIOServices = new FileIOServices<List<ToDoModel>>("data.json");
             var obserrModelList = fileIOServices.LoadData();
-            if (obserrModelList is null)
-                TodoList = new ObservableCollectionEx<ToDoModel>();
-            else
-                TodoList = new ObservableCollectionEx<ToDoModel>(obserrModelList);
+            TodoList = new ObservableCollectionEx<ToDoModel>(obserrModelList);
+            //TodoList = new ObservableCollectionEx<ToDoModel>();
             todoList.CollectionChanged += TodoList_CollectionChanged;
            
         }
@@ -42,7 +40,9 @@ namespace ToDoList.ViewModel
         private void TodoList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             fileIOServices.SaveData(TodoList.ToList());
-            
+            ProgressBarProgress = ProgressBarProgresPercent();
+
+
         }
 
         #region ProgressBarProgress : int  - Процент заполнения прогрессбара

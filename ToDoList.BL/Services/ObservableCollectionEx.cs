@@ -15,14 +15,18 @@ namespace ToDoList.BL.Models.Services
 
         public ObservableCollectionEx() : base()
         {
-            this.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(ObservableCollectionEx_CollectionChanged);
+            this.CollectionChanged += new NotifyCollectionChangedEventHandler(ObservableCollectionEx_CollectionChanged);
         }
-        public ObservableCollectionEx(List<T> list) : base(list)
+        public ObservableCollectionEx(List<T> list) 
         {
-            this.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(ObservableCollectionEx_CollectionChanged);
+            this.CollectionChanged += new NotifyCollectionChangedEventHandler(ObservableCollectionEx_CollectionChanged);
+            foreach (var item in list)
+            {
+                this.Add(item);
+            }
         }
 
-        void ObservableCollectionEx_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        void ObservableCollectionEx_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.Action == NotifyCollectionChangedAction.Remove)
             {
