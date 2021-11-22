@@ -1,16 +1,28 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+
 
 namespace ToDoList.BL.Models
 {
     [Serializable]
     public class ToDoModel : INotifyPropertyChanged
     {
-       
+
+
         private bool _isDone;
         private string _text;
+        private IEnumerable <ToDoModel> subTask=new List<ToDoModel>();
         private DateTime deadLine = DateTime.Now;
+
+        //TODO реализовать подзадачи
+
+        public IEnumerable<ToDoModel> SubTask
+        {
+            get => subTask;
+            set { subTask = value; OnPropertyChanged(nameof(SubTask)); }
+        }
         public DateTime CreationDate { get; set; } = DateTime.Now;
         public DateTime Deadline
         {
