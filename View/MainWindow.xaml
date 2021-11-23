@@ -55,8 +55,6 @@
                         <DockPanel>
                             <md:PackIcon Kind="ToDo" HorizontalAlignment="Left" Margin="2" Width="Auto"/>
                             <TextBlock Text="ToDo" HorizontalAlignment="Left" Margin="2"/>
-                            <md:PackIcon Kind="Search" HorizontalAlignment="Left" Margin="2" Width="Auto"/>
-                            <TextBox Text="{Binding TaskFilter}"/>
                         </DockPanel>
                     </GroupBox.Header>
                     <GroupBox.Resources>
@@ -84,7 +82,9 @@
                                         <TextBlock HorizontalAlignment="Stretch" DockPanel.Dock="Top">Дата создания</TextBlock>
                                         <DockPanel DockPanel.Dock="Bottom">
                                             <md:PackIcon Kind="Search" Margin="3 0"/>
-                                            <TextBox Text="{Binding SelectedGroupStudentSerchTextBox, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <TextBox Text="{Binding RelativeSource
+                                                ={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, 
+                                                Path=DataContext.Filters_Texts.CreationData, UpdateSourceTrigger=PropertyChanged}"/>
                                         </DockPanel>
                                     </DockPanel>
                                 </DataGridTemplateColumn.Header>
@@ -145,7 +145,9 @@
                                         <TextBlock HorizontalAlignment="Stretch" DockPanel.Dock="Top">Дата завершения</TextBlock>
                                         <DockPanel DockPanel.Dock="Bottom" Width="{Binding Width, RelativeSource={RelativeSource AncestorType=DataGridTemplateColumn, Mode=FindAncestor}}">
                                             <md:PackIcon Kind="Search" Margin="3 0"/>
-                                            <TextBox  Text="{Binding SelectedGroupStudentSerchTextBox, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <TextBox  Text="{Binding RelativeSource
+                                                ={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, 
+                                                Path=DataContext.Filters_Texts.EndData, UpdateSourceTrigger=PropertyChanged}"/>
                                         </DockPanel>
                                     </DockPanel>
                                 </DataGridTemplateColumn.Header>

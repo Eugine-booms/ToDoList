@@ -44,6 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Base\BasePropertyChengModel.cs" />
+    <Compile Include="Models\FilterText.cs" />
+    <Compile Include="Services\Filtrator.cs" />
     <Compile Include="Services\ObservableCollectionEx.cs" />
     <Compile Include="Models\ToDoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

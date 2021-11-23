@@ -78,7 +78,7 @@ namespace ToDoList.ViewModel
         #region filters_Texts : FiltersText  - Набор фильтров
         
         private FilterText filters_Texts = new FilterText();
-        public FilterText Filters_Texts { get => filters_Texts; set => filters_Texts = value; }
+        public FilterText Filters_Texts { get => filters_Texts; set { Set(ref filters_Texts, value, nameof(Filters_Texts)); } }
         ///<summary> Набор фильтров
 
 
@@ -87,7 +87,7 @@ namespace ToDoList.ViewModel
         private void List_Filter(object sender, FilterEventArgs e)
         {
             if (!(e.Item is ToDoModel model)) return;
-            if (new Filtrator(Filters_Texts, model).IsTrue()) return;
+            if (Filtrator.IsTrue(Filters_Texts, model)) return;
             e.Accepted = false;
         }
 
