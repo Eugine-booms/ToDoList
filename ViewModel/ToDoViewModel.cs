@@ -12,37 +12,48 @@ using ToDoList.BL.Models.Services;
 
 namespace ToDoList.ViewModel
 {
+
+
+
     internal class ToDoViewModel : ViewModelBase
     {
-        private readonly IFileIOServices <List<ToDoModel>> fileIOServices;
+        private IFileIOServices<List<ToDoModel>> fileIOServices;
 
         private ObservableCollectionEx<ToDoModel> todoList;
-        public ObservableCollectionEx<ToDoModel> TodoList 
-        { 
-            get => todoList; 
-            set 
-            { 
+
+        private readonly CollectionViewSource list = new CollectionViewSource();
+        public ICollectionView List => list?.View;
+
+        public ObservableCollectionEx<ToDoModel> TodoList
+        {
+            get => todoList;
+            set
+            {
                 Set(ref todoList, value, nameof(TodoList));
-                OnPropertyChanged(nameof(TodoList));
-            } 
+                list.Source = value;
+                list.View.Refresh();
+               
+            }
         }
-       
+        #region Конструктор
+
         public ToDoViewModel()
         {
-            fileIOServices = new FileIOServices<List<ToDoModel>>("data.json");
-            var obserrModelList = fileIOServices.LoadData();
-            TodoList = new ObservableCollectionEx<ToDoModel>(obserrModelList);
-            //TodoList = new ObservableCollectionEx<ToDoModel>();
+            TodoList = GetSaveData();
             todoList.CollectionChanged += TodoList_CollectionChanged;
-           
+            
+            list.Filter += List_Filter;
+
+
         }
+
+
+        #endregion
 
         private void TodoList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             fileIOServices.SaveData(TodoList.ToList());
             ProgressBarProgress = ProgressBarProgresPercent();
-
-
         }
 
         #region ProgressBarProgress : int  - Процент заполнения прогрессбара
@@ -54,15 +65,14 @@ namespace ToDoList.ViewModel
             get => ProgressBarProgresPercent();
             set => Set(ref _ProgressBarProgress, value);
         }
-        #endregion
 
         private int ProgressBarProgresPercent()
         {
             if (TodoList.Count == 0) return 1;
-            var chekedCount = TodoList.Count(x=>x.IsDone==true);
+            var chekedCount = TodoList.Count(x => x.IsDone == true);
             return chekedCount * 100 / TodoList.Count;
         }
-
+        #endregion
 
         #region  Сортировка 
 
@@ -76,36 +86,34 @@ namespace ToDoList.ViewModel
             set
             {
                 if (!Set(ref _taskFilter, value)) return;
+                OnPropertyChanged(nameof(TodoList));
+                
                 list.View.Refresh();
+                OnPropertyChanged(nameof(List));
             }
         }
         #endregion
-        private CollectionViewSource list = new CollectionViewSource();
-        public ICollectionView List => list?.View;
-
-
-        private void ToDoViewSource_Filter(object sender, FilterEventArgs e)
+        private void List_Filter(object sender, FilterEventArgs e)
         {
-            e.Accepted = true;
-            if (!(e.Item is ToDoModel model))
-            {
+            var item = e.Item;
+            var text = TaskFilter;
+            if (string.IsNullOrWhiteSpace(text)) return;
+            if (text.Length>1)
                 e.Accepted = false;
-                return;
-            }
-            if (model.Text is null)
-            {
-                e.Accepted = false;
-                return;
-            }
-            var searchText = TaskFilter;
-            if (string.IsNullOrWhiteSpace(searchText)) return;
-            if (model.Text.ToLower().Contains(searchText.Trim(' ').ToLower())) return;
-            e.Accepted = false;
         }
+
+
 
         #endregion
 
+        #region Вспомогательные методы
+        private ObservableCollectionEx<ToDoModel> GetSaveData()
+        {
+            fileIOServices = new FileIOServices<List<ToDoModel>>("data.json");
+            var obserrModelList = fileIOServices.LoadData();
+            return new ObservableCollectionEx<ToDoModel>(obserrModelList);
+        }
 
-
+        #endregion
     }
 }
