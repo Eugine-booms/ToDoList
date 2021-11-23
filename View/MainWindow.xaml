@@ -123,7 +123,7 @@
                                             <md:PackIcon Kind="Search" Margin="3 0"/>
                                             <TextBox Text="{Binding RelativeSource
                                                 ={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, 
-                                                Path=DataContext.TaskFilter , UpdateSourceTrigger=PropertyChanged}"/>
+                                                Path=DataContext.Filters_Texts.Text , UpdateSourceTrigger=PropertyChanged}"/>
                                         </DockPanel>
                                     </DockPanel>
                                 </DataGridTemplateColumn.Header>

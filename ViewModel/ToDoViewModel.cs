@@ -32,7 +32,7 @@ namespace ToDoList.ViewModel
                 Set(ref todoList, value, nameof(TodoList));
                 list.Source = value;
                 list.View.Refresh();
-               
+
             }
         }
         #region Конструктор
@@ -41,10 +41,9 @@ namespace ToDoList.ViewModel
         {
             TodoList = GetSaveData();
             todoList.CollectionChanged += TodoList_CollectionChanged;
-            
+
             list.Filter += List_Filter;
-
-
+            filters_Texts.PropertyChanged += (t, e) => list.View.Refresh();
         }
 
 
@@ -65,6 +64,7 @@ namespace ToDoList.ViewModel
             get => ProgressBarProgresPercent();
             set => Set(ref _ProgressBarProgress, value);
         }
+       
 
         private int ProgressBarProgresPercent()
         {
@@ -75,31 +75,20 @@ namespace ToDoList.ViewModel
         #endregion
 
         #region  Сортировка 
+        #region filters_Texts : FiltersText  - Набор фильтров
+        
+        private FilterText filters_Texts = new FilterText();
+        public FilterText Filters_Texts { get => filters_Texts; set => filters_Texts = value; }
+        ///<summary> Набор фильтров
 
-        #region TaskFilter : string  - TaskFilter
-        ///<summary> TaskFilter
-        private string _taskFilter;
-        ///<summary> TaskFilter
-        public string TaskFilter
-        {
-            get => _taskFilter;
-            set
-            {
-                if (!Set(ref _taskFilter, value)) return;
-                OnPropertyChanged(nameof(TodoList));
-                
-                list.View.Refresh();
-                OnPropertyChanged(nameof(List));
-            }
-        }
+
         #endregion
+
         private void List_Filter(object sender, FilterEventArgs e)
         {
-            var item = e.Item;
-            var text = TaskFilter;
-            if (string.IsNullOrWhiteSpace(text)) return;
-            if (text.Length>1)
-                e.Accepted = false;
+            if (!(e.Item is ToDoModel model)) return;
+            if (new Filtrator(Filters_Texts, model).IsTrue()) return;
+            e.Accepted = false;
         }
 
 
