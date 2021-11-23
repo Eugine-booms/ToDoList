@@ -10,9 +10,10 @@ namespace ToDoList.BL.Models
     public class FilterText : Base.BasePropertyChengModel
     {
         private string creationData;
-        private string isDone;
+        private bool isDone=true;
         private string text;
         private string endData;
+        private bool isNotDone=true;
         public string CreationData
         {
             get => creationData;
@@ -21,12 +22,20 @@ namespace ToDoList.BL.Models
                 Set(ref creationData, value, nameof(CreationData));
             }
         }
-        public string IsDone
+        public bool ShowIsDone
         {
             get => isDone;
             set
             {
-                Set(ref isDone, value, nameof(IsDone));
+                Set(ref isDone, value, nameof(ShowIsDone));
+            }
+        }
+        public bool ShowNotIsDone
+        {
+            get => isNotDone;
+            set
+            {
+                Set(ref isNotDone, value, nameof(ShowNotIsDone));
             }
         }
         public string Text

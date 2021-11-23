@@ -65,7 +65,7 @@
                               GridLinesVisibility="Vertical"
                               VerticalGridLinesBrush="DarkGray"
                               AlternatingRowBackground="LightGray"
-                              ItemsSource="{Binding List}">
+                              ItemsSource="{Binding List}" >
                         <DataGrid.Resources>
                             <ResourceDictionary>
                                 <ResourceDictionary.MergedDictionaries>
@@ -102,8 +102,12 @@
                                         <DockPanel DockPanel.Dock="Bottom">
                                             <md:PackIcon Kind="Search" Margin="3 0"/>
                                             <ComboBox >
-                                                <CheckBox/>
-                                                <CheckBox/>
+                                                <CheckBox Content="Показывать Выполненные" IsChecked="{Binding RelativeSource=
+                                                    {RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, 
+                                                    Path=DataContext.Filters_Texts.ShowIsDone, UpdateSourceTrigger=PropertyChanged}"/>
+                                                <CheckBox Content="Показывать не выполненные" IsChecked="{Binding RelativeSource=
+                                                    {RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, 
+                                                    Path=DataContext.Filters_Texts.ShowNotIsDone, UpdateSourceTrigger=PropertyChanged}"/>
                                             </ComboBox>
                                         </DockPanel>
                                     </DockPanel>

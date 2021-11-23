@@ -20,7 +20,7 @@ namespace ToDoList.BL.Services
 
         public static bool IsTrue(FilterText filterText, ToDoModel model)
         {
-            var result = new bool[4];
+            var result = new bool[5];
             if (!string.IsNullOrWhiteSpace(filterText.CreationData))
             {
                 result[0] = true;
@@ -39,12 +39,14 @@ namespace ToDoList.BL.Services
                 result[2] = true;
 
             }
-            if (!string.IsNullOrWhiteSpace(filterText.IsDone))
+            result[3] = true;
+            if (filterText.ShowIsDone&&filterText.ShowNotIsDone
+                ||filterText.ShowIsDone&&model.IsDone
+                ||filterText.ShowNotIsDone&&(!model.IsDone))
             {
-                result[3] = true;
+                result[3] = false;
             }
-            
-            return result.All(x => x == false); ;
+                return result.All(x => x == false); ;
         }
     }
 }
