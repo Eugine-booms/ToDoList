@@ -1,0 +1,28 @@
+﻿<UserControl x:Class="ToDoList.View.DateFIlterView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ToDoList"
+             xmlns:vm="clr-namespace:ToDoList.ViewModel"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance vm:DateFilterViewModel}"
+             d:DesignHeight="30" d:DesignWidth="150" Background="Transparent" 
+             x:Name="Control">
+        <ComboBox IsEditable="False" DataContext="">
+            <DockPanel >
+                <TextBlock Text="Дата:" DockPanel.Dock="Top"/>
+                <DatePicker DockPanel.Dock="Bottom" IsTodayHighlighted="True" Focusable="True" 
+                            ToolTip="Выбрать день" 
+                            SelectedDate="{Binding ElementName=Control,Path=DataContext.SelectedDate, UpdateSourceTrigger=PropertyChanged}"/>
+            </DockPanel>
+            <Separator/>
+            <CheckBox Content="День" ToolTip="Показывает все события выбранного дня"
+                      IsChecked="{Binding ElementName=Control,Path=DataContext.CheckBoxDay, UpdateSourceTrigger=PropertyChanged}" />
+            <CheckBox Content="Неделя" ToolTip="Показывает все события +неделя от выбранного дня"
+                      IsChecked="{Binding ElementName=Control,Path=DataContext.CheckboxWeek, UpdateSourceTrigger=PropertyChanged}" />
+            <CheckBox Content="Месяц" ToolTip="Показывает все события +Месяц от выбранного дня"
+                      IsChecked="{Binding ElementName=Control,Path=DataContext.CheckboxMonth, UpdateSourceTrigger=PropertyChanged}" />
+        </ComboBox>
+
+</UserControl>
