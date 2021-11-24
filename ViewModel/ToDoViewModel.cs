@@ -9,12 +9,13 @@ using System;
 using System.Collections.Specialized;
 using System.Collections.Generic;
 using ToDoList.BL.Models.Services;
+using System.Windows.Markup;
 
 namespace ToDoList.ViewModel
 {
 
 
-
+    [MarkupExtensionReturnType(typeof(ToDoViewModel))]
     internal class ToDoViewModel : ViewModelBase
     {
 
@@ -31,22 +32,15 @@ namespace ToDoList.ViewModel
         /// Прокси между V и VM
         /// </summary>
         private readonly CollectionViewSource list = new CollectionViewSource();
+        
+        //----------------------------------------------------
         /// <summary>
         /// VM Для полоски фильтров
         /// </summary>
-        private FiltratorViewModel filtrator;
+        internal FiltratorViewModel Filtrator { get; }
 
-
-
-        public FiltratorViewModel Filtrator
-        {
-            get
-            {
-                if (filtrator == null)
-                    filtrator = new FiltratorViewModel();
-                return filtrator;
-            }
-        }
+       
+        
         public ICollectionView List => list?.View;
         public ObservableCollectionEx<ToDoModel> TodoList
         {
@@ -64,6 +58,7 @@ namespace ToDoList.ViewModel
 
         public ToDoViewModel()
         {
+            Filtrator = new FiltratorViewModel(this);
             TodoList = GetSaveData();
             todoList.CollectionChanged += TodoList_CollectionChanged;
             list.Filter += MainListFilter;

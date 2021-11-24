@@ -3,17 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Markup;
 using ToDoList.BL.Models;
 
 namespace ToDoList.ViewModel
 {
-   internal class FiltratorViewModel : Base.ViewModelBase
+    [MarkupExtensionReturnType(typeof(FiltratorViewModel))]
+    internal class FiltratorViewModel : Base.ViewModelBase
     {
+        public ToDoViewModel MainViewModel { get; internal set; }
+
         private string creationData;
         private bool isDone = true;
         private string text;
         private string endData;
         private bool isNotDone = true;
+        internal DateFilterViewModel DateFilterViewModel { get; }
+       
+
+    public FiltratorViewModel(ToDoViewModel mainViewModel)
+        {
+            MainViewModel = mainViewModel ?? throw new ArgumentNullException(nameof(mainViewModel));
+            DateFilterViewModel = new DateFilterViewModel(this);
+        }
+
         public string CreationData
         {
             get => creationData;

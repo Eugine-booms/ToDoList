@@ -118,6 +118,7 @@
     <Compile Include="Command\Base\LambdaCommand.cs" />
     <Compile Include="Command\ExitCommand.cs" />
     <Compile Include="ViewModel\Base\ViewModelBase.cs" />
+    <Compile Include="ViewModel\DateFilterViewModel.cs" />
     <Compile Include="ViewModel\FiltratorViewModel.cs" />
     <Compile Include="ViewModel\ToDoViewModel.cs" />
     <Page Include="Resources\DataTemplates\ToDoModelRowDataTemplates.xaml">
@@ -128,6 +129,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\DateFIlterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -135,6 +140,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="View\DateFIlterView.xaml.cs">
+      <DependentUpon>DateFIlterView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

@@ -6,7 +6,7 @@
         xmlns:model="clr-namespace:ToDoList.BL.Models;assembly=ToDoList.BL"
         xmlns:local="clr-namespace:ToDoList"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:vm="clr-namespace:ToDoList.ViewModel" xmlns:cmd="clr-namespace:ToDoList.Command"
+        xmlns:vm="clr-namespace:ToDoList.ViewModel" xmlns:cmd="clr-namespace:ToDoList.Command" xmlns:v="clr-namespace:ToDoList.View"
         d:DataContext="{d:DesignInstance Type=vm:ToDoViewModel}"
         mc:Ignorable="d"
         Title="ToDoList" Height="537" Width="869"
@@ -88,11 +88,12 @@
                                     <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
                                         <TextBlock HorizontalAlignment="Center" DockPanel.Dock="Top">Дата создания</TextBlock>
                                         <DockPanel DockPanel.Dock="Bottom">
-                                            <md:PackIcon Kind="Search" Margin="3 0"/>
-                                            <TextBox MinWidth="100" 
+                                            <!--<md:PackIcon Kind="Search" Margin="3 0"/>-->
+                                            <v:DateFIlterView Height="22"/>
+                                            <!--<TextBox MinWidth="100" 
                                                 Text="{Binding RelativeSource
                                                 ={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, 
-                                                Path=DataContext.Filtrator.CreationData, UpdateSourceTrigger=PropertyChanged}"/>
+                                                Path=DataContext.Filtrator.CreationData, UpdateSourceTrigger=PropertyChanged}"/>-->
                                         </DockPanel>
                                     </StackPanel>
                                 </DataGridTemplateColumn.Header >
@@ -109,7 +110,7 @@
                                         <TextBlock HorizontalAlignment="Center" Text="Выполнение" />
                                         <DockPanel DockPanel.Dock="Bottom">
                                             <md:PackIcon Kind="Search" Margin="3 0"/>
-                                            <ComboBox MinWidth="140">
+                                            <ComboBox IsEditable="False" MinWidth="140" >
                                                 <CheckBox Content="Показывать Выполненные" IsChecked="{Binding RelativeSource=
                                                     {RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, 
                                                     Path=DataContext.Filtrator.ShowIsDone, UpdateSourceTrigger=PropertyChanged}"/>
