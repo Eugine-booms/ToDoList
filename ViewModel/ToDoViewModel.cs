@@ -17,13 +17,37 @@ namespace ToDoList.ViewModel
 
     internal class ToDoViewModel : ViewModelBase
     {
+
+        /// <summary>
+        /// Менеджер загрузки
+        /// </summary>
         private IFileIOServices<List<ToDoModel>> fileIOServices;
 
+        /// <summary>
+        /// Главная коллекция объектов
+        /// </summary>
         private ObservableCollectionEx<ToDoModel> todoList;
-
+        /// <summary>
+        /// Прокси между V и VM
+        /// </summary>
         private readonly CollectionViewSource list = new CollectionViewSource();
-        public ICollectionView List => list?.View;
+        /// <summary>
+        /// VM Для полоски фильтров
+        /// </summary>
+        private FiltratorViewModel filtrator;
 
+
+
+        public FiltratorViewModel Filtrator
+        {
+            get
+            {
+                if (filtrator == null)
+                    filtrator = new FiltratorViewModel();
+                return filtrator;
+            }
+        }
+        public ICollectionView List => list?.View;
         public ObservableCollectionEx<ToDoModel> TodoList
         {
             get => todoList;
@@ -31,24 +55,29 @@ namespace ToDoList.ViewModel
             {
                 Set(ref todoList, value, nameof(TodoList));
                 list.Source = value;
-                list.View.Refresh();
-
             }
         }
+
+
+
         #region Конструктор
 
         public ToDoViewModel()
         {
             TodoList = GetSaveData();
             todoList.CollectionChanged += TodoList_CollectionChanged;
-
-            list.Filter += List_Filter;
-            filters_Texts.PropertyChanged += (t, e) => list.View.Refresh();
+            list.Filter += MainListFilter;
+            Filtrator.PropertyChanged += (t, e) => list.View.Refresh();
         }
 
 
         #endregion
 
+        /// <summary>
+        /// Действия при изменении коллекции
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TodoList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             fileIOServices.SaveData(TodoList.ToList());
@@ -75,27 +104,25 @@ namespace ToDoList.ViewModel
         #endregion
 
         #region  Сортировка 
-        #region filters_Texts : FiltersText  - Набор фильтров
-        
-        private FilterText filters_Texts = new FilterText();
-        public FilterText Filters_Texts { get => filters_Texts; set { Set(ref filters_Texts, value, nameof(Filters_Texts)); } }
-        ///<summary> Набор фильтров
 
-
-        #endregion
-
-        private void List_Filter(object sender, FilterEventArgs e)
+        /// <summary>
+        /// Сортировка главного листа
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MainListFilter(object sender, FilterEventArgs e)
         {
             if (!(e.Item is ToDoModel model)) return;
-            if (Filtrator.IsTrue(Filters_Texts, model)) return;
+            if (Filtrator.IsTrue(model)) return;
             e.Accepted = false;
         }
-
-
-
         #endregion
 
         #region Вспомогательные методы
+        /// <summary>
+        /// Загрузка данных из менеджера загрузки
+        /// </summary>
+        /// <returns></returns>
         private ObservableCollectionEx<ToDoModel> GetSaveData()
         {
             fileIOServices = new FileIOServices<List<ToDoModel>>("data.json");

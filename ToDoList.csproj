@@ -118,6 +118,7 @@
     <Compile Include="Command\Base\LambdaCommand.cs" />
     <Compile Include="Command\ExitCommand.cs" />
     <Compile Include="ViewModel\Base\ViewModelBase.cs" />
+    <Compile Include="ViewModel\FiltratorViewModel.cs" />
     <Compile Include="ViewModel\ToDoViewModel.cs" />
     <Page Include="Resources\DataTemplates\ToDoModelRowDataTemplates.xaml">
       <SubType>Designer</SubType>

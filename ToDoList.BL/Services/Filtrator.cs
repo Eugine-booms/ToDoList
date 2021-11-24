@@ -18,35 +18,6 @@ namespace ToDoList.BL.Services
         //    this.filterText = filterText ?? throw new ArgumentNullException(nameof(filterText));
         //}
 
-        public static bool IsTrue(FilterText filterText, ToDoModel model)
-        {
-            var result = new bool[5];
-            if (!string.IsNullOrWhiteSpace(filterText.CreationData))
-            {
-                result[0] = true;
-
-            }
-            if (!string.IsNullOrWhiteSpace(filterText.Text))
-            {
-                result[1] = true;
-                if (model.Text.ToLower().Contains(filterText.Text.Trim(' ').ToLower()))
-                {
-                    result[1] = false;
-                }
-            }
-            if (!string.IsNullOrWhiteSpace(filterText.EndData))
-            {
-                result[2] = true;
-
-            }
-            result[3] = true;
-            if (filterText.ShowIsDone&&filterText.ShowNotIsDone
-                ||filterText.ShowIsDone&&model.IsDone
-                ||filterText.ShowNotIsDone&&(!model.IsDone))
-            {
-                result[3] = false;
-            }
-                return result.All(x => x == false); ;
-        }
+       
     }
 }

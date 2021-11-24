@@ -13,10 +13,6 @@ namespace ToDoList
         {
             InitializeComponent();
             //DataContext = new ToDoViewModel();
-           
-
         }
-
-        
     }
 }

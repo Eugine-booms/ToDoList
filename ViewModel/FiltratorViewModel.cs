@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ToDoList.BL.Models;
 
-namespace ToDoList.BL.Models
+namespace ToDoList.ViewModel
 {
-    public class FilterText : Base.BasePropertyChengModel
+   internal class FiltratorViewModel : Base.ViewModelBase
     {
         private string creationData;
-        private bool isDone=true;
+        private bool isDone = true;
         private string text;
         private string endData;
-        private bool isNotDone=true;
+        private bool isNotDone = true;
         public string CreationData
         {
             get => creationData;
@@ -55,5 +55,37 @@ namespace ToDoList.BL.Models
             }
         }
 
+        public bool IsTrue(ToDoModel model)
+        {
+            var result = new bool[5];
+            if (!string.IsNullOrWhiteSpace(this.CreationData))
+            {
+                result[0] = true;
+
+            }
+            if (!string.IsNullOrWhiteSpace(Text))
+            {
+                result[1] = true;
+                if (model.Text.ToLower().Contains(Text.Trim(' ').ToLower()))
+                {
+                    result[1] = false;
+                }
+            }
+            if (!string.IsNullOrWhiteSpace(EndData))
+            {
+                result[2] = true;
+
+            }
+            result[3] = true;
+            if (ShowIsDone && ShowNotIsDone
+                || ShowIsDone && model.IsDone
+                || ShowNotIsDone && (!model.IsDone))
+            {
+                result[3] = false;
+            }
+            return result.All(x => x == false); ;
+        }
+
     }
 }
+
