@@ -5,7 +5,7 @@ using System.Windows.Markup;
 
 namespace ToDoList.ViewModel.Base
 {
-    internal class ViewModelBase : MarkupExtension, INotifyPropertyChanged
+    public class ViewModelBase : MarkupExtension, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

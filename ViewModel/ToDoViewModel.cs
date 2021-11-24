@@ -16,7 +16,7 @@ namespace ToDoList.ViewModel
 
 
     [MarkupExtensionReturnType(typeof(ToDoViewModel))]
-    internal class ToDoViewModel : ViewModelBase
+    public class ToDoViewModel : ViewModelBase
     {
 
         /// <summary>
@@ -32,14 +32,23 @@ namespace ToDoList.ViewModel
         /// Прокси между V и VM
         /// </summary>
         private readonly CollectionViewSource list = new CollectionViewSource();
-        
+
         //----------------------------------------------------
         /// <summary>
         /// VM Для полоски фильтров
         /// </summary>
-        internal FiltratorViewModel Filtrator { get; }
-
-       
+        private FiltratorViewModel filtrator; 
+        public FiltratorViewModel Filtrator
+        {
+            get => filtrator;
+            set
+            {
+                if (filtrator is null)
+                    filtrator = new FiltratorViewModel(this);
+                Set(ref filtrator, value);
+            }
+        }
+      
         
         public ICollectionView List => list?.View;
         public ObservableCollectionEx<ToDoModel> TodoList
@@ -58,7 +67,8 @@ namespace ToDoList.ViewModel
 
         public ToDoViewModel()
         {
-            Filtrator = new FiltratorViewModel(this);
+            filtrator = new FiltratorViewModel(this);
+            Filtrator.DateFilter = new DateFilterViewModel(Filtrator);
             TodoList = GetSaveData();
             todoList.CollectionChanged += TodoList_CollectionChanged;
             list.Filter += MainListFilter;

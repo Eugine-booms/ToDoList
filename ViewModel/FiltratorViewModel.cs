@@ -9,7 +9,7 @@ using ToDoList.BL.Models;
 namespace ToDoList.ViewModel
 {
     [MarkupExtensionReturnType(typeof(FiltratorViewModel))]
-    internal class FiltratorViewModel : Base.ViewModelBase
+    public class FiltratorViewModel : Base.ViewModelBase
     {
         public ToDoViewModel MainViewModel { get; internal set; }
 
@@ -18,13 +18,43 @@ namespace ToDoList.ViewModel
         private string text;
         private string endData;
         private bool isNotDone = true;
-        internal DateFilterViewModel DateFilterViewModel { get; }
-       
+        private DateFilterViewModel dateFilter;
+        private DateFilterViewModel deadLineFilter;
 
-    public FiltratorViewModel(ToDoViewModel mainViewModel)
+
+
+
+        public FiltratorViewModel(ToDoViewModel mainViewModel)
         {
             MainViewModel = mainViewModel ?? throw new ArgumentNullException(nameof(mainViewModel));
-            DateFilterViewModel = new DateFilterViewModel(this);
+            DateFilter = new DateFilterViewModel(this);
+            DeadLineFilter = new DateFilterViewModel(this);
+
+            DateFilter.PropertyChanged += DateFilter_PropertyChanged;
+            deadLineFilter.PropertyChanged += DeadLineFilter_PropertyChanged;
+
+        }
+
+        private void DeadLineFilter_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(DateFilter));
+        }
+
+        private void DateFilter_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(DateFilter));
+        }
+
+        public DateFilterViewModel DeadLineFilter { get => deadLineFilter; set => Set(ref deadLineFilter, value); }
+        public DateFilterViewModel DateFilter
+        {
+            get => dateFilter;
+            set
+            {
+                if (dateFilter is null)
+                    dateFilter = new DateFilterViewModel(this);
+                Set(ref dateFilter, value, nameof(DateFilter));
+            }
         }
 
         public string CreationData
@@ -67,6 +97,8 @@ namespace ToDoList.ViewModel
                 Set(ref endData, value, nameof(EndData));
             }
         }
+
+       
 
         public bool IsTrue(ToDoModel model)
         {

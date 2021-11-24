@@ -9,17 +9,11 @@
         xmlns:vm="clr-namespace:ToDoList.ViewModel" xmlns:cmd="clr-namespace:ToDoList.Command" xmlns:v="clr-namespace:ToDoList.View"
         d:DataContext="{d:DesignInstance Type=vm:ToDoViewModel}"
         mc:Ignorable="d"
+        DataContext="{vm:ToDoViewModel}"
         Title="ToDoList" Height="537" Width="869"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         x:Name="mainWindow">
-    <!--<Window.Resources>
-        <vm:ToDoViewModel x:Name="WinDataContext" x:Key="WinDataContext"/>
-    </Window.Resources>-->
-    <Window.DataContext>
-        <vm:ToDoViewModel/>
-        <!--<Binding RelativeSource="{StaticResource WinDataContext}"/>-->
-    </Window.DataContext>
     <DockPanel>
         <Menu DockPanel.Dock="Top" FontSize="14" Height="30">
             <Menu.Resources>
@@ -50,14 +44,16 @@
         </StatusBar>
         <TabControl DockPanel.Dock="Top">
             <TabItem Header="1">
-                <GroupBox >
+                <GroupBox x:Name="Box">
                     <GroupBox.Header>
                         <DockPanel>
+                           
                             <md:PackIcon Kind="ToDo" HorizontalAlignment="Left" Margin="2" Width="Auto"/>
                             <TextBlock Text="ToDo" HorizontalAlignment="Left" Margin="2"/>
                         </DockPanel>
                     </GroupBox.Header>
                     <GroupBox.Resources>
+
                     </GroupBox.Resources>
 
                     <DataGrid x:Name="dataGrid" 
@@ -73,7 +69,6 @@
                              CanUserAddRows="True" CanUserDeleteRows="True"  SelectionUnit="FullRow"
                              ScrollViewer.HorizontalScrollBarVisibility="Auto" >
                         <DataGrid.Resources>
-                            <!--<vm:FiltratorViewModel x:Key="FilterBox"/>-->
                             <ResourceDictionary>
                                 <ResourceDictionary.MergedDictionaries>
                                     <ResourceDictionary Source="../Resources/Styles/TexBoxStrikethrough.xaml"/>
@@ -85,15 +80,13 @@
                             <DataGridTemplateColumn SortMemberPath="CreationDate"
                                                     Width="0.4*" IsReadOnly="True">
                                 <DataGridTemplateColumn.Header>
-                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
+                                    <StackPanel  Orientation="Vertical"
+                                                HorizontalAlignment="Stretch">
                                         <TextBlock HorizontalAlignment="Center" DockPanel.Dock="Top">Дата создания</TextBlock>
-                                        <DockPanel DockPanel.Dock="Bottom">
-                                            <!--<md:PackIcon Kind="Search" Margin="3 0"/>-->
-                                            <v:DateFIlterView Height="22"/>
-                                            <!--<TextBox MinWidth="100" 
-                                                Text="{Binding RelativeSource
-                                                ={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, 
-                                                Path=DataContext.Filtrator.CreationData, UpdateSourceTrigger=PropertyChanged}"/>-->
+                                        <DockPanel>
+                                            <v:DateFIlterView DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
+                                                                        AncestorType=Window}, 
+                                                                        Path=DataContext.Filtrator.DateFilter}"/>
                                         </DockPanel>
                                     </StackPanel>
                                 </DataGridTemplateColumn.Header >
@@ -158,13 +151,11 @@
                                 <DataGridTemplateColumn.Header>
                                     <DockPanel>
                                         <TextBlock HorizontalAlignment="Stretch" DockPanel.Dock="Top">Дата завершения</TextBlock>
-                                        <DockPanel DockPanel.Dock="Bottom" Width="{Binding Width, RelativeSource={RelativeSource AncestorType=DataGridTemplateColumn, Mode=FindAncestor}}">
-                                            <md:PackIcon Kind="Search" Margin="3 0"/>
-                                            <TextBox  MinWidth="100"
-                                                Text="{Binding RelativeSource
-                                                ={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, 
-                                                Path=DataContext.Filtrator.EndData, UpdateSourceTrigger=PropertyChanged}"/>
-                                        </DockPanel>
+                                        <DockPanel DockPanel.Dock="Bottom" />
+                                        <md:PackIcon Kind="Search" Margin="3 0"/>
+                                        <v:DateFIlterView DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
+                                                                        AncestorType=Window}, 
+                                                                        Path=DataContext.Filtrator.DeadLineFilter}"/>
                                     </DockPanel>
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
