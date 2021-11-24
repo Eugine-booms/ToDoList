@@ -68,7 +68,6 @@ namespace ToDoList.ViewModel
         public ToDoViewModel()
         {
             filtrator = new FiltratorViewModel(this);
-            Filtrator.DateFilter = new DateFilterViewModel(Filtrator);
             TodoList = GetSaveData();
             todoList.CollectionChanged += TodoList_CollectionChanged;
             list.Filter += MainListFilter;
