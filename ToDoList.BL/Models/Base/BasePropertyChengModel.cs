@@ -1,25 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows.Markup;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ToDoList.ViewModel.Base
+
+namespace ToDoList.BL.Models.Base
 {
-    public class ViewModelBase : MarkupExtension, INotifyPropertyChanged
+ public abstract class BasePropertyChengModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return this;
-        }
-
+       
         protected virtual void OnPropertyChanged([CallerMemberName] string PropertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
         }
-
-
 
         protected virtual bool Set<T>(ref T field, T value, [CallerMemberName] string PropertyName = null)
         {
