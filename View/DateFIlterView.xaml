@@ -9,20 +9,28 @@
              d:DataContext="{d:DesignInstance vm:DateFilterViewModel}"
              d:DesignHeight="30" d:DesignWidth="150" Background="Transparent" 
              x:Name="Control">
-        <ComboBox IsEditable="False" DataContext="">
-            <DockPanel >
-                <TextBlock Text="Дата:" DockPanel.Dock="Top"/>
-                <DatePicker DockPanel.Dock="Bottom" IsTodayHighlighted="True" Focusable="True" 
+    <ComboBox IsEditable="False" IsReadOnly="True"  DataContext="" Width="150">
+            <DockPanel Width="150">
+                <TextBlock Text="Дата:" HorizontalAlignment="Center" DockPanel.Dock="Top" Panel.ZIndex="100"/>
+                <DatePicker DockPanel.Dock="Bottom" HorizontalAlignment="Center"
+                            IsTodayHighlighted="True" Focusable="True" 
                             ToolTip="Выбрать день" 
                             SelectedDate="{Binding ElementName=Control,Path=DataContext.SelectedDate, UpdateSourceTrigger=PropertyChanged}"/>
             </DockPanel>
-            <Separator/>
-            <CheckBox Content="День" ToolTip="Показывает все события выбранного дня"
+        <Separator/>
+        <DockPanel Width="150" >
+            <CheckBox Content="День" ToolTip="Показывает все события выбранного дня"  HorizontalContentAlignment="Left" 
+                  HorizontalAlignment="Stretch"
                       IsChecked="{Binding ElementName=Control,Path=DataContext.CheckBoxDay, UpdateSourceTrigger=PropertyChanged}" />
+        </DockPanel>
+        <DockPanel Width="150" >
             <CheckBox Content="Неделя" ToolTip="Показывает все события +неделя от выбранного дня"
                       IsChecked="{Binding ElementName=Control,Path=DataContext.CheckboxWeek, UpdateSourceTrigger=PropertyChanged}" />
+        </DockPanel>
+        <DockPanel Width="150" >
             <CheckBox Content="Месяц" ToolTip="Показывает все события +Месяц от выбранного дня"
                       IsChecked="{Binding ElementName=Control,Path=DataContext.CheckboxMonth, UpdateSourceTrigger=PropertyChanged}" />
-        </ComboBox>
+        </DockPanel>
+    </ComboBox>
 
 </UserControl>

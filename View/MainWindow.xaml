@@ -104,10 +104,12 @@
                                         <DockPanel DockPanel.Dock="Bottom">
                                             <md:PackIcon Kind="Search" Margin="3 0"/>
                                             <ComboBox IsEditable="False" MinWidth="140" >
-                                                <CheckBox Content="Показывать Выполненные" IsChecked="{Binding RelativeSource=
+                                                <CheckBox Content="Показывать Выполненные" Width="165"
+                                                          IsChecked="{Binding RelativeSource=
                                                     {RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, 
                                                     Path=DataContext.Filtrator.ShowIsDone, UpdateSourceTrigger=PropertyChanged}"/>
-                                                <CheckBox Content="Показывать не выполненные" IsChecked="{Binding RelativeSource=
+                                                <CheckBox Content="Показывать не выполненные" Width="165" 
+                                                          IsChecked="{Binding RelativeSource=
                                                     {RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, 
                                                     Path=DataContext.Filtrator.ShowNotIsDone, UpdateSourceTrigger=PropertyChanged}"/>
                                             </ComboBox>
