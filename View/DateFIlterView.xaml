@@ -5,32 +5,44 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ToDoList"
              xmlns:vm="clr-namespace:ToDoList.ViewModel"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance vm:DateFilterViewModel}"
-             d:DesignHeight="30" d:DesignWidth="150" Background="Transparent" 
-             x:Name="Control">
-    <ComboBox IsEditable="False" IsReadOnly="True"  DataContext="" Width="150">
-            <DockPanel Width="150">
+             d:DesignHeight="30" Background="Transparent" 
+             x:Name="Control" >
+    <DockPanel>
+        <Menu Margin="1" DockPanel.Dock="Top"  HorizontalAlignment="Center" HorizontalContentAlignment="Center">
+            <MenuItem >
+                <MenuItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <md:PackIcon Kind="Sort" Margin="5"/>
+                        <TextBlock Text="" Margin="5"/>
+                    </StackPanel>
+                </MenuItem.Header>
                 <TextBlock Text="Дата:" HorizontalAlignment="Center" DockPanel.Dock="Top" Panel.ZIndex="100"/>
                 <DatePicker DockPanel.Dock="Bottom" HorizontalAlignment="Center"
                             IsTodayHighlighted="True" Focusable="True" 
                             ToolTip="Выбрать день" 
                             SelectedDate="{Binding ElementName=Control,Path=DataContext.SelectedDate, UpdateSourceTrigger=PropertyChanged}"/>
-            </DockPanel>
-        <Separator/>
-        <DockPanel Width="150" >
-            <CheckBox Content="День" ToolTip="Показывает все события выбранного дня"  HorizontalContentAlignment="Left" 
+                <Separator/>
+                <DockPanel Width="150" >
+                    <CheckBox Content="День" ToolTip="Показывает все события выбранного дня"  HorizontalContentAlignment="Left" 
                   HorizontalAlignment="Stretch"
                       IsChecked="{Binding ElementName=Control,Path=DataContext.CheckBoxDay, UpdateSourceTrigger=PropertyChanged}" />
-        </DockPanel>
-        <DockPanel Width="150" >
-            <CheckBox Content="Неделя" ToolTip="Показывает все события +неделя от выбранного дня"
-                      IsChecked="{Binding ElementName=Control,Path=DataContext.CheckboxWeek, UpdateSourceTrigger=PropertyChanged}" />
-        </DockPanel>
-        <DockPanel Width="150" >
-            <CheckBox Content="Месяц" ToolTip="Показывает все события +Месяц от выбранного дня"
-                      IsChecked="{Binding ElementName=Control,Path=DataContext.CheckboxMonth, UpdateSourceTrigger=PropertyChanged}" />
-        </DockPanel>
-    </ComboBox>
+                </DockPanel>
 
+
+                <DockPanel Width="150" >
+                    <CheckBox Content="Неделя" ToolTip="Показывает все события +неделя от выбранного дня"
+                      IsChecked="{Binding ElementName=Control,Path=DataContext.CheckboxWeek, UpdateSourceTrigger=PropertyChanged}" />
+                </DockPanel>
+
+                <DockPanel Width="150" >
+                    <CheckBox Content="Месяц" ToolTip="Показывает все события +Месяц от выбранного дня"
+                      IsChecked="{Binding ElementName=Control,Path=DataContext.CheckboxMonth, UpdateSourceTrigger=PropertyChanged}" />
+                </DockPanel>
+
+            </MenuItem>
+        </Menu>
+    </DockPanel>
 </UserControl>

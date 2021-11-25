@@ -34,9 +34,6 @@
             </MenuItem>
         </Menu>
         <StatusBar DockPanel.Dock="Bottom">
-            <!--<StatusBarItem MinWidth="150" MaxWidth="300">
-                <TextBlock Text="{Binding Path=Status}"/>
-            </StatusBarItem>-->
             <StatusBarItem>
                 <ProgressBar   Height="14" Value="{Binding ProgressBarProgress}" 
                                Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}"/>
@@ -47,7 +44,7 @@
                 <GroupBox x:Name="Box">
                     <GroupBox.Header>
                         <DockPanel>
-                           
+
                             <md:PackIcon Kind="ToDo" HorizontalAlignment="Left" Margin="2" Width="Auto"/>
                             <TextBlock Text="ToDo" HorizontalAlignment="Left" Margin="2"/>
                         </DockPanel>
@@ -56,18 +53,19 @@
 
                     </GroupBox.Resources>
 
-                    <DataGrid x:Name="dataGrid" 
+                    <DataGrid x:Name="MainGrid" 
                               AutoGenerateColumns="False" 
                               GridLinesVisibility="Vertical"
                               VerticalGridLinesBrush="DarkGray"
                               AlternatingRowBackground="LightGray"
                               ItemsSource="{Binding List}" 
                               SelectionMode="Single"  VirtualizingPanel.IsVirtualizing="True" FontSize="10" 
-                             RowDetailsVisibilityMode="VisibleWhenSelected" BorderThickness="1"   
-                             EnableColumnVirtualization="True" EnableRowVirtualization="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.IsDeferredScrollingEnabled="True"
-                             ScrollViewer.CanContentScroll ="True" VirtualizingPanel.VirtualizationMode="Recycling"
-                             CanUserAddRows="True" CanUserDeleteRows="True"  SelectionUnit="FullRow"
-                             ScrollViewer.HorizontalScrollBarVisibility="Auto" >
+                              RowDetailsVisibilityMode="VisibleWhenSelected" BorderThickness="1"   
+                              EnableColumnVirtualization="True" EnableRowVirtualization="True" 
+                              ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.IsDeferredScrollingEnabled="True"
+                              ScrollViewer.CanContentScroll ="True" VirtualizingPanel.VirtualizationMode="Recycling"
+                              CanUserAddRows="True" CanUserDeleteRows="True"  SelectionUnit="FullRow"
+                              ScrollViewer.HorizontalScrollBarVisibility="Auto" >
                         <DataGrid.Resources>
                             <ResourceDictionary>
                                 <ResourceDictionary.MergedDictionaries>
@@ -76,18 +74,17 @@
                             </ResourceDictionary>
                         </DataGrid.Resources>
                         <DataGrid.Columns>
-                            <!--<DataGridTextColumn Header="Test"  Binding="{Binding Text}"/>-->
-                            <DataGridTemplateColumn SortMemberPath="CreationDate"
+                            <DataGridTemplateColumn x:Name="CreationDate" SortMemberPath="CreationDate"
                                                     Width="0.4*" IsReadOnly="True">
                                 <DataGridTemplateColumn.Header>
-                                    <StackPanel  Orientation="Vertical"
-                                                HorizontalAlignment="Stretch">
-                                        <TextBlock HorizontalAlignment="Center" DockPanel.Dock="Top">Дата создания</TextBlock>
-                                        <DockPanel>
-                                            <v:DateFIlterView DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
+                                    <StackPanel  Orientation="Horizontal">
+                                        <TextBlock HorizontalAlignment="Center" 
+                                                   DockPanel.Dock="Top"
+                                                   VerticalAlignment="Center">Дата создания</TextBlock>
+                                        <v:DateFIlterView DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
                                                                         AncestorType=Window}, 
                                                                         Path=DataContext.Filtrator.DateFilter}"/>
-                                        </DockPanel>
+
                                     </StackPanel>
                                 </DataGridTemplateColumn.Header >
                                 <DataGridTemplateColumn.CellTemplate >
@@ -96,14 +93,19 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn SortMemberPath="IsDone"
+                            <DataGridTemplateColumn x:Name="IsDone" SortMemberPath="IsDone"
                                                     Width="0.5*">
                                 <DataGridTemplateColumn.Header>
-                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
-                                        <TextBlock HorizontalAlignment="Center" Text="Выполнение" />
-                                        <DockPanel DockPanel.Dock="Bottom">
-                                            <md:PackIcon Kind="Search" Margin="3 0"/>
-                                            <ComboBox IsEditable="False" MinWidth="140" >
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Выполнение" Margin="5" />
+                                        <Menu>
+                                            <MenuItem >
+                                                <MenuItem.Header>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <md:PackIcon Kind="Sort" />
+                                                        <TextBlock Text=""/>
+                                                    </StackPanel>
+                                                </MenuItem.Header>
                                                 <CheckBox Content="Показывать Выполненные" Width="165"
                                                           IsChecked="{Binding RelativeSource=
                                                     {RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, 
@@ -112,8 +114,8 @@
                                                           IsChecked="{Binding RelativeSource=
                                                     {RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, 
                                                     Path=DataContext.Filtrator.ShowNotIsDone, UpdateSourceTrigger=PropertyChanged}"/>
-                                            </ComboBox>
-                                        </DockPanel>
+                                            </MenuItem>
+                                        </Menu>
                                     </StackPanel>
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
@@ -127,7 +129,12 @@
                                                     Width="0.8*" MinWidth="100" MaxWidth="500">
                                 <DataGridTemplateColumn.Header>
                                     <StackPanel HorizontalAlignment="Stretch">
-                                        <TextBlock HorizontalAlignment="Center" DockPanel.Dock="Top">Задача</TextBlock>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <md:PackIcon HorizontalAlignment="Center" 
+                                                         VerticalAlignment="Center" Kind="TaskAdd" Margin="0 0 10 0"/>
+                                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                                       DockPanel.Dock="Top">Задача</TextBlock>
+                                        </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <md:PackIcon Kind="Search" Margin="3"/>
                                             <TextBox  MinWidth="250"  Text="{Binding RelativeSource
@@ -148,13 +155,11 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellEditingTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn SortMemberPath="Deadline"
-                                                    Width="0.4*">
+                            <DataGridTemplateColumn x:Name="EndDate" SortMemberPath="Deadline" Width="0.5*">
                                 <DataGridTemplateColumn.Header>
                                     <DockPanel>
-                                        <TextBlock HorizontalAlignment="Stretch" DockPanel.Dock="Top">Дата завершения</TextBlock>
-                                        <DockPanel DockPanel.Dock="Bottom" />
-                                        <md:PackIcon Kind="Search" Margin="3 0"/>
+                                        <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                                   DockPanel.Dock="Left">Дата завершения</TextBlock>
                                         <v:DateFIlterView DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
                                                                         AncestorType=Window}, 
                                                                         Path=DataContext.Filtrator.DeadLineFilter}"/>
