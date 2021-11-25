@@ -1,8 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Globalization;
+using System.IO;
+using System.Runtime.CompilerServices;
 using System.Windows;
+using ToDoList.ViewModel;
+using ToDoList.Servises;
+using Registrator = ToDoList.Servises.Registrator;
 
 namespace ToDoList
 {
@@ -41,9 +45,15 @@ namespace ToDoList
 
         internal static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
-            services.RegisterServices()
-                .RegisterViewModels();
+            services.RegisterViewModels();
+            services= Registrator.RegisterServices(services);
         }
-        
+
+        public static string CurrentDirectory => IsDesigneMode
+             ? Path.GetDirectoryName(GetSourceCodePath())
+             : Environment.CurrentDirectory;
+
+        private static string GetSourceCodePath([CallerFilePath] string Path = null) => Path;
+
     }
 }

@@ -195,8 +195,8 @@
     <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
     </Reference>
-    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
+    <Reference Include="System.Runtime, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
@@ -257,11 +257,7 @@
     <Compile Include="Command\Base\LambdaCommand.cs" />
     <Compile Include="Command\ExitCommand.cs" />
     <Compile Include="Programm.cs" />
-    <Compile Include="Services\FileIOServices.cs" />
-    <Compile Include="Services\Filtrator.cs" />
-    <Compile Include="Services\Interfaces\IFileIOServices.cs" />
-    <Compile Include="Services\ObservableCollectionEx.cs" />
-    <Compile Include="Services\Registrator.cs" />
+    <Compile Include="Servises\Registrator.cs" />
     <Compile Include="ViewModel\Base\ViewModelBase.cs" />
     <Compile Include="ViewModel\DateFilterViewModel.cs" />
     <Compile Include="ViewModel\FiltratorViewModel.cs" />
