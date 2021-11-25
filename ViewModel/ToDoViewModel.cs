@@ -18,15 +18,16 @@ namespace ToDoList.ViewModel
     [MarkupExtensionReturnType(typeof(ToDoViewModel))]
     public class ToDoViewModel : ViewModelBase
     {
-
         /// <summary>
         /// Менеджер загрузки
         /// </summary>
-        private IFileIOServices<List<ToDoModel>> fileIOServices;
+        public IFileIOServices<List<ToDoModel>> FileIO { get; }
+        
+        //private IFileIOServices<List<ToDoModel>> fileIOServices;
         /// <summary>
         /// Модель полоски фильтров
         /// </summary>
-        private FiltratorViewModel filtrator;
+        public FiltratorViewModel Filtrator;
 
         /// <summary>
         /// Главная коллекция объектов расширенная ObservableCollection следящая за изменением своих свойств
@@ -54,9 +55,11 @@ namespace ToDoList.ViewModel
 
         #region Конструктор
 
-        public ToDoViewModel()
+        public ToDoViewModel(FiltratorViewModel filtrator, IFileIOServices<List<ToDoModel>> fileIO)
         {
-            filtrator = new FiltratorViewModel(this);
+            Filtrator = filtrator;
+            FileIO = fileIO;
+            FileIO.SetPath("data.json");
             TodoList = GetSaveData();
             todoList.CollectionChanged += TodoList_CollectionChanged;
             list.Filter += MainListFilter;
@@ -73,7 +76,7 @@ namespace ToDoList.ViewModel
         /// <param name="e"></param>
         private void TodoList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            fileIOServices.SaveData(TodoList.ToList());
+            FileIO.SaveData(TodoList.ToList());
             ProgressBarProgress = ProgressBarProgresPercent();
         }
         #region Полоска фильтров 
@@ -82,16 +85,16 @@ namespace ToDoList.ViewModel
         /// </summary>
 
         
-        public FiltratorViewModel Filtrator
-        {
-            get => filtrator;
-            set
-            {
-                if (filtrator is null)
-                    filtrator = new FiltratorViewModel(this);
-                Set(ref filtrator, value);
-            }
-        }
+        //public FiltratorViewModel Filtrator
+        //{
+        //    get => filtrator;
+        //    set
+        //    {
+        //        if (filtrator is null)
+        //            filtrator = new FiltratorViewModel(this);
+        //        Set(ref filtrator, value);
+        //    }
+        //}
         #endregion
 
         #region ProgressBarProgress : int  - Процент заполнения прогрессбара
@@ -103,7 +106,7 @@ namespace ToDoList.ViewModel
             get => ProgressBarProgresPercent();
             set => Set(ref _ProgressBarProgress, value);
         }
-
+       
 
         private int ProgressBarProgresPercent()
         {
@@ -135,8 +138,7 @@ namespace ToDoList.ViewModel
         /// <returns></returns>
         private ObservableCollectionEx<ToDoModel> GetSaveData()
         {
-            fileIOServices = new FileIOServices<List<ToDoModel>>("data.json");
-            var obserrModelList = fileIOServices.LoadData();
+            var obserrModelList = FileIO.LoadData();
             return new ObservableCollectionEx<ToDoModel>(obserrModelList);
         }
 
