@@ -8,6 +8,10 @@ namespace ToDoList.BL.Services
     {
         private  string PATH;
 
+        public FileIOServices()
+        {
+        }
+
         public FileIOServices(string path)
         {
             PATH = path ?? throw new ArgumentNullException(nameof(path));

@@ -13,7 +13,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <vm:ViewModelLocator x:Key="Locator"/>
+            <vm:ViewModelLocator x:Key="Locator" x:Name="Locator"/>
         </ResourceDictionary>
 
     </Application.Resources>

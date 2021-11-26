@@ -10,7 +10,6 @@ using System.Collections.Specialized;
 using System.Collections.Generic;
 using ToDoList.BL.Models.Services;
 using System.Windows.Markup;
-
 namespace ToDoList.ViewModel
 {
 
@@ -55,13 +54,15 @@ namespace ToDoList.ViewModel
 
         #region Конструктор
 
-        public ToDoViewModel(FiltratorViewModel filtrator, IFileIOServices<List<ToDoModel>> fileIO)
+        public ToDoViewModel(FiltratorViewModel filtrator)
         {
             Filtrator = filtrator;
-            FileIO = fileIO;
+            Filtrator.MainViewModel = this;
+           // FileIO = (FileIOServices<List<ToDoModel>>)App.Host.Services.GetService(typeof( IFileIOServices<List<ToDoModel>>));
+            FileIO = new FileIOServices<List<ToDoModel>> ();
             FileIO.SetPath("data.json");
             TodoList = GetSaveData();
-            todoList.CollectionChanged += TodoList_CollectionChanged;
+            TodoList.CollectionChanged += TodoList_CollectionChanged;
             list.Filter += MainListFilter;
             Filtrator.PropertyChanged += (t, e) => list.View.Refresh();
         }

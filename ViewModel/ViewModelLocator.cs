@@ -1,9 +1,26 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Windows.Markup;
 
 namespace ToDoList.ViewModel
 {
-    internal class ViewModelLocator
+    [MarkupExtensionReturnType(typeof(ViewModelLocator))]
+    public   class ViewModelLocator : MarkupExtension
     {
-        public ToDoViewModel MainWindowViewModel => App.Host.Services.GetRequiredService<ToDoViewModel>();
+        public override object ProvideValue(IServiceProvider serviceProvider)
+        {
+            return this;
+        }
+        public ViewModelLocator()
+        {
+        }
+
+        public ToDoViewModel MainWindowViewModel
+        { 
+            get 
+            { 
+                return App.Host.Services.GetRequiredService<ToDoViewModel>(); 
+            } 
+        }
     }
 }

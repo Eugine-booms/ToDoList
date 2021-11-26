@@ -6,9 +6,11 @@
         xmlns:model="clr-namespace:ToDoList.BL.Models;assembly=ToDoList.BL"
         xmlns:local="clr-namespace:ToDoList"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:vm="clr-namespace:ToDoList.ViewModel" xmlns:cmd="clr-namespace:ToDoList.Command" xmlns:v="clr-namespace:ToDoList.View"
+        xmlns:vm="clr-namespace:ToDoList.ViewModel" 
+        xmlns:cmd="clr-namespace:ToDoList.Command" 
+        xmlns:v="clr-namespace:ToDoList.View"
         d:DataContext="{d:DesignInstance Type=vm:ToDoViewModel}"
-        DataContext="{Binding ToDoViewModel, Source={StaticResource Locator}}"
+        DataContext="{Binding Path=MainWindowViewModel, Source={StaticResource Locator}}"
         mc:Ignorable="d"
         Title="ToDoList" Height="537" Width="869"
         Background="{DynamicResource MaterialDesignPaper}"
@@ -43,16 +45,16 @@
             <TabItem Header="1">
                 <GroupBox x:Name="Box">
                     <GroupBox.Header>
-                        <DockPanel>
-
+                        <DockPanel DataContext="{Binding Filtrator}">
                             <md:PackIcon Kind="ToDo" HorizontalAlignment="Left" Margin="2" Width="Auto"/>
                             <TextBlock Text="ToDo" HorizontalAlignment="Left" Margin="2"/>
+                            <Button Content="Обновить" Click="Button_Click" />
+                            <v:DateFIlterView DataContext="{Binding DeadLineFilter}"/>
                         </DockPanel>
                     </GroupBox.Header>
                     <GroupBox.Resources>
 
                     </GroupBox.Resources>
-
                     <DataGrid x:Name="MainGrid" 
                               AutoGenerateColumns="False" 
                               GridLinesVisibility="Vertical"
@@ -81,7 +83,7 @@
                                         <TextBlock HorizontalAlignment="Center" 
                                                    DockPanel.Dock="Top"
                                                    VerticalAlignment="Center">Дата создания</TextBlock>
-                                        <v:DateFIlterView DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
+                                        <v:DateFIlterView x:Name="Create" DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
                                                                         AncestorType=Window}, 
                                                                         Path=DataContext.Filtrator.DateFilter}"/>
 
@@ -137,9 +139,7 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <md:PackIcon Kind="Search" Margin="3"/>
-                                            <TextBox  MinWidth="250"  Text="{Binding RelativeSource
-                                                ={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, 
-                                                Path=DataContext.Filtrator.Text , UpdateSourceTrigger=PropertyChanged}"/>
+                                            <TextBox  MinWidth="250"  Text="{Binding Path=Filtrator.Text, RelativeSource={RelativeSource Mode=TemplatedParent}}" Cursor="IBeam"/>
                                         </StackPanel>
 
                                     </StackPanel>

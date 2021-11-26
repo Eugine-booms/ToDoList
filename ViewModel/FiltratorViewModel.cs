@@ -24,11 +24,12 @@ namespace ToDoList.ViewModel
 
 
 
-        public FiltratorViewModel(ToDoViewModel mainViewModel)
+        public FiltratorViewModel(DateFilterViewModel creationDate, DateFilterViewModel dateOfEnd)
         {
-            MainViewModel = mainViewModel ?? throw new ArgumentNullException(nameof(mainViewModel));
-            DateFilter = new DateFilterViewModel(this);
-            DeadLineFilter = new DateFilterViewModel(this);
+            DateFilter = creationDate;
+            DateFilter.MainViewModel=this;
+            DeadLineFilter = dateOfEnd;
+            deadLineFilter.MainViewModel = this;
             dateFilter.PropertyChanged += DateFilter_PropertyChanged;
             deadLineFilter.PropertyChanged += DeadLineFilter_PropertyChanged;
         }

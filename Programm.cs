@@ -27,7 +27,7 @@ namespace ToDoList
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
             var host_builder = Host.CreateDefaultBuilder(args);
-            host_builder.UseContentRoot(Environment.CurrentDirectory);
+            host_builder.UseContentRoot(App.CurrentDirectory);
             host_builder.ConfigureAppConfiguration((hostingContext, config) =>
             {
                 config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);

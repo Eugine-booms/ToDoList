@@ -12,7 +12,13 @@ namespace ToDoList
         public MainWindow()
         {
             InitializeComponent();
-            //DataContext = new ToDoViewModel();
+            //DataContext = new ViewModelLocator().MainWindowViewModel;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        { 
+            if (this.DataContext is ToDoViewModel dc)
+            Create.DataContext = dc.Filtrator.DateFilter;    
         }
     }
 }
