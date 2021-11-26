@@ -139,7 +139,7 @@
                                             <TextBox  MinWidth="250"  Text="{Binding Path=DataContext.Filtrator.Text, 
                                                 UpdateSourceTrigger=PropertyChanged,
                                                 RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}" 
-                                                      Cursor="IBeam"/>
+                                                      Cursor="Pen"/>
                                         </StackPanel>
 
                                     </StackPanel>

@@ -10,6 +10,9 @@ using System.Collections.Specialized;
 using System.Collections.Generic;
 using ToDoList.BL.Models.Services;
 using System.Windows.Markup;
+using ToDoList.Servises;
+using ToDoList.Servises.Interface;
+
 namespace ToDoList.ViewModel
 {
 
@@ -20,26 +23,17 @@ namespace ToDoList.ViewModel
         /// <summary>
         /// Менеджер загрузки
         /// </summary>
-        public IFileIOServices<List<ToDoModel>> FileIO { get; }
+        public IServiceIO FileIO { get; }
         
         //private IFileIOServices<List<ToDoModel>> fileIOServices;
         /// <summary>
         /// Модель полоски фильтров
         /// </summary>
         private FiltratorViewModel filtrator;
-
         /// <summary>
         /// Главная коллекция объектов расширенная ObservableCollection следящая за изменением своих свойств
         /// </summary> 
         private ObservableCollectionEx<ToDoModel> todoList;
-        /// <summary>
-        /// Прокси между V и VM
-        /// </summary>
-        
-        private readonly CollectionViewSource list = new CollectionViewSource();
-
-        //----------------------------------------------------
-        public ICollectionView List => list?.View;
         public ObservableCollectionEx<ToDoModel> TodoList
         {
             get => todoList;
@@ -49,17 +43,27 @@ namespace ToDoList.ViewModel
                 list.Source = value;
             }
         }
+        /// <summary>
+        /// Прокси между V и VM
+        /// </summary>
+        private readonly CollectionViewSource list = new CollectionViewSource();
+        public ICollectionView List => list?.View;
+
+        //----------------------------------------------------
+
+
 
 
 
         #region Конструктор
 
-        public ToDoViewModel(FiltratorViewModel filtrator)
+        public ToDoViewModel(FiltratorViewModel filtrator, IServiceIO servis)
         {
             Filtrator = filtrator;
             Filtrator.MainViewModel = this;
-           // FileIO = (FileIOServices<List<ToDoModel>>)App.Host.Services.GetService(typeof( IFileIOServices<List<ToDoModel>>));
-            FileIO = new FileIOServices<List<ToDoModel>> ();
+
+
+            FileIO = servis;
             FileIO.SetPath("data.json");
             TodoList = GetSaveData();
             TodoList.CollectionChanged += TodoList_CollectionChanged;

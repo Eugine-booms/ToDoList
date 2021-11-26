@@ -18,11 +18,6 @@ namespace ToDoList.BL.Helpers
         {
             return dateToCheck >= dateTimeRange.StartDate && dateToCheck <= dateTimeRange.EndDate;
         }
-
-        public static IFileIOServices<List<ToDoModel>> SetPath(this FileIOServices<List<ToDoModel>> fileIO, string path)
-        {
-            if (fileIO.SetPath(path)) ;
-            return fileIO;
-        }
+        
     }
 }

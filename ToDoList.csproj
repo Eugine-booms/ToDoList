@@ -257,7 +257,9 @@
     <Compile Include="Command\Base\LambdaCommand.cs" />
     <Compile Include="Command\ExitCommand.cs" />
     <Compile Include="Programm.cs" />
-    <Compile Include="Servises\Registrator.cs" />
+    <Compile Include="Services\Interface\IServiceIO.cs" />
+    <Compile Include="Services\ServiceIO.cs" />
+    <Compile Include="Services\Registrator.cs" />
     <Compile Include="ViewModel\Base\ViewModelBase.cs" />
     <Compile Include="ViewModel\DateFilterViewModel.cs" />
     <Compile Include="ViewModel\FiltratorViewModel.cs" />
