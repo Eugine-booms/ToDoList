@@ -4,13 +4,10 @@ using System.Windows.Markup;
 
 namespace ToDoList.ViewModel
 {
-    [MarkupExtensionReturnType(typeof(ViewModelLocator))]
-    public   class ViewModelLocator : MarkupExtension
+    
+    public   class ViewModelLocator 
     {
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return this;
-        }
+        
         public ViewModelLocator()
         {
         }

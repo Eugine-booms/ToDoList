@@ -14,7 +14,7 @@ namespace ToDoList.ViewModel
         public static IServiceCollection RegisterViewModels(this IServiceCollection services)
         {
             services.AddSingleton<ToDoViewModel>();
-            services.AddSingleton<DateFilterViewModel>();
+            services.AddTransient<DateFilterViewModel>();
             services.AddSingleton<FiltratorViewModel>();
             return services; 
         }

@@ -26,7 +26,7 @@ namespace ToDoList.ViewModel
         /// <summary>
         /// Модель полоски фильтров
         /// </summary>
-        public FiltratorViewModel Filtrator;
+        private FiltratorViewModel filtrator;
 
         /// <summary>
         /// Главная коллекция объектов расширенная ObservableCollection следящая за изменением своих свойств
@@ -81,21 +81,19 @@ namespace ToDoList.ViewModel
             ProgressBarProgress = ProgressBarProgresPercent();
         }
         #region Полоска фильтров 
-        /// <summary>
+        // <summary>
         /// VM Для полоски фильтров
         /// </summary>
 
         
-        //public FiltratorViewModel Filtrator
-        //{
-        //    get => filtrator;
-        //    set
-        //    {
-        //        if (filtrator is null)
-        //            filtrator = new FiltratorViewModel(this);
-        //        Set(ref filtrator, value);
-        //    }
-        //}
+        public FiltratorViewModel Filtrator
+        {
+            get => filtrator;
+            set
+            {
+                Set(ref filtrator, value, nameof(Filtrator));
+            }
+        }
         #endregion
 
         #region ProgressBarProgress : int  - Процент заполнения прогрессбара

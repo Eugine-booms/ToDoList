@@ -45,15 +45,12 @@
             <TabItem Header="1">
                 <GroupBox x:Name="Box">
                     <GroupBox.Header>
-                        <DockPanel DataContext="{Binding Filtrator}">
+                        <DockPanel >
                             <md:PackIcon Kind="ToDo" HorizontalAlignment="Left" Margin="2" Width="Auto"/>
                             <TextBlock Text="ToDo" HorizontalAlignment="Left" Margin="2"/>
-                            <Button Content="Обновить" Click="Button_Click" />
-                            <v:DateFIlterView DataContext="{Binding DeadLineFilter}"/>
                         </DockPanel>
                     </GroupBox.Header>
                     <GroupBox.Resources>
-
                     </GroupBox.Resources>
                     <DataGrid x:Name="MainGrid" 
                               AutoGenerateColumns="False" 
@@ -139,7 +136,10 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <md:PackIcon Kind="Search" Margin="3"/>
-                                            <TextBox  MinWidth="250"  Text="{Binding Path=Filtrator.Text, RelativeSource={RelativeSource Mode=TemplatedParent}}" Cursor="IBeam"/>
+                                            <TextBox  MinWidth="250"  Text="{Binding Path=DataContext.Filtrator.Text, 
+                                                UpdateSourceTrigger=PropertyChanged,
+                                                RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}" 
+                                                      Cursor="IBeam"/>
                                         </StackPanel>
 
                                     </StackPanel>

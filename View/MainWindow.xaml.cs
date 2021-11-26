@@ -12,7 +12,6 @@ namespace ToDoList
         public MainWindow()
         {
             InitializeComponent();
-            //DataContext = new ViewModelLocator().MainWindowViewModel;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

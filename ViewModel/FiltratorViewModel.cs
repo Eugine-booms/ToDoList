@@ -30,8 +30,10 @@ namespace ToDoList.ViewModel
             DateFilter.MainViewModel=this;
             DeadLineFilter = dateOfEnd;
             deadLineFilter.MainViewModel = this;
-            dateFilter.PropertyChanged += DateFilter_PropertyChanged;
-            deadLineFilter.PropertyChanged += DeadLineFilter_PropertyChanged;
+            DateFilter.PropertyChanged += DateFilter_PropertyChanged;
+            DeadLineFilter.PropertyChanged += DeadLineFilter_PropertyChanged;
+            OnPropertyChanged(nameof(DateFilter));
+            OnPropertyChanged(nameof(DeadLineFilter));
         }
 
         private void DateFilter_PropertyChanged(object sender, PropertyChangedEventArgs e)
