@@ -56,12 +56,17 @@
                 <MenuItem Header="О программе"/>
             </MenuItem>
         </Menu>
-       
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <ProgressBar   Height="14" Value="{Binding ProgressBarProgress}" 
+                               Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}"/>
+            </StatusBarItem>
+        </StatusBar>
         <TabControl DockPanel.Dock="Top">
             <TabItem Header="1">
                 <GroupBox x:Name="Box">
                     <GroupBox.Header>
-                        <DockPanel >
+                        <DockPanel>
                             <md:PackIcon Kind="ToDo" HorizontalAlignment="Left" Margin="2" Width="Auto"/>
                             <TextBlock Text="ToDo" HorizontalAlignment="Left" Margin="2"/>
                         </DockPanel>
@@ -97,7 +102,7 @@
                                         <TextBlock HorizontalAlignment="Center" 
                                                    DockPanel.Dock="Top"
                                                    VerticalAlignment="Center">Дата создания</TextBlock>
-                                        <v:DateFIlterView x:Name="Create" DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
+                                        <v:DateFIlterView DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
                                                                         AncestorType=Window}, 
                                                                         Path=DataContext.Filtrator.DateFilter}"/>
 
@@ -176,6 +181,7 @@
                                 </DataGridTemplateColumn.CellEditingTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTemplateColumn x:Name="EndDate" SortMemberPath="Deadline" Width="0.5*" MinWidth="150" MaxWidth="200">
+
                                 <DataGridTemplateColumn.Header>
                                     <DockPanel>
                                         <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Center" 
