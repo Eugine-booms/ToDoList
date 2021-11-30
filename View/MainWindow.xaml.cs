@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using ToDoList.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace ToDoList.View
 {
@@ -13,6 +14,7 @@ namespace ToDoList.View
         public MainWindow()
         {
             InitializeComponent();
+            var sdf = DateTime.Now.ToString("");
           
         }
 

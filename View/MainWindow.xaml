@@ -105,7 +105,9 @@
                                 </DataGridTemplateColumn.Header >
                                 <DataGridTemplateColumn.CellTemplate >
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Path=CreationDate}" Style="{StaticResource TextBlockStrikethrough}"/>
+                                        <TextBlock Text="{Binding Path=CreationDate, StringFormat= dd.MM.yyyy hh:mm  }" 
+                                                   ToolTip="{Binding Path=CreationDate, StringFormat=hh.mm}" 
+                                                   Style="{StaticResource TextBlockStrikethrough}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -185,12 +187,12 @@
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate >
-                                        <TextBlock Text="{Binding Path=Deadline, StringFormat='dd/MM/yyyy'}" Style="{StaticResource TextBlockStrikethrough}"/>
+                                        <TextBlock Text="{Binding Path=Deadline, StringFormat='dd.MM.yyyy'}" Style="{StaticResource TextBlockStrikethrough}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                                 <DataGridTemplateColumn.CellEditingTemplate>
                                     <DataTemplate>
-                                        <DatePicker SelectedDate="{Binding Deadline}"/>
+                                        <DatePicker SelectedDate="{Binding Deadline, StringFormat=dd.MM.yyyy}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellEditingTemplate>
                             </DataGridTemplateColumn>

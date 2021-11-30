@@ -86,9 +86,6 @@ namespace ToDoList.ViewModel
         }
 
         #endregion
-
-       
-        
         #region Полоска фильтров 
          /// <summary>
          /// Действия при изменении коллекции
