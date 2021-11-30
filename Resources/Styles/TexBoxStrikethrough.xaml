@@ -3,7 +3,7 @@
 
     <Style TargetType="TextBox" x:Key="TextBoxStrikethrough" x:Name="TextBoxStrikethrough">
         <Setter Property="TextWrapping" Value="Wrap"/>
-        <Setter Property="AcceptsReturn" Value="True"/>
+        <Setter Property="AcceptsReturn" Value="False"/>
         <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
         <Style.Triggers>
             <DataTrigger Binding="{Binding Path=IsDone}" Value="true">
