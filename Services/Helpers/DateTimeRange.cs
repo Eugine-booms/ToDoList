@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ToDoList.BL.Models
+namespace ToDoList.Services.Helpers
 {
-  public  class DateTimeRange
+    public class DateTimeRange
     {
         public DateTimeRange(DateTime startDate, DateTime endDate)
         {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Markup;
-using ToDoList.BL.Models;
+using ToDoList.Services.Helpers;
 using ToDoList.ViewModel.Base;
 
 namespace ToDoList.ViewModel

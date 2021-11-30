@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ToDoList.BL.Models;
-using ToDoList.BL.Services;
+using ToDoList.Services.Helpers;
 
-namespace ToDoList.BL.Helpers
+namespace ToDoList.Servises.Helpers
 {
-  public static class Helper
+    public static class Helper
     {
-      public static  bool IsInRange(this DateTime dateToCheck, DateTime startDate, DateTime endDate)
+        public static bool IsInRange(this DateTime dateToCheck, DateTime startDate, DateTime endDate)
         {
             return dateToCheck >= startDate && dateToCheck <= endDate;
         }
@@ -18,6 +13,6 @@ namespace ToDoList.BL.Helpers
         {
             return dateToCheck >= dateTimeRange.StartDate && dateToCheck <= dateTimeRange.EndDate;
         }
-        
+
     }
 }

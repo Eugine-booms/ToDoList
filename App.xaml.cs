@@ -4,8 +4,8 @@ using System;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using ToDoList.Services;
 using ToDoList.ViewModel;
-using ToDoList.Servises;
 
 
 namespace ToDoList
@@ -50,7 +50,7 @@ namespace ToDoList
         {
             services
                 .RegisterViewModels()
-                .RegisterViewModels();
+                .RegisterServices();
             
         }
 

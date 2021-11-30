@@ -1,10 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Windows.Markup;
 
 namespace ToDoList.ViewModel
 {
-    
+
     public   class ViewModelLocator 
     {
         
@@ -16,7 +14,8 @@ namespace ToDoList.ViewModel
         { 
             get 
             { 
-                return App.Host.Services.GetRequiredService<ToDoViewModel>(); 
+                var mainWindow= App.Host.Services.GetRequiredService<ToDoViewModel>();
+                return mainWindow;
             } 
         }
     }

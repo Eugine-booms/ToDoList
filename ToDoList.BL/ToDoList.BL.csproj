@@ -44,12 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\Helper.cs" />
-    <Compile Include="Models\Base\BasePropertyChengModel.cs" />
-    <Compile Include="Models\DateTimeRange.cs" />
-    <Compile Include="Models\Services\FileIOServices.cs" />
-    <Compile Include="Models\Services\Interfaces\IFileIOServices.cs" />
-    <Compile Include="Models\Services\ObservableCollectionEx.cs" />
+    <Compile Include="Models\Interfaces\IEntity.cs" />
+    <Compile Include="Services\FileIOServices.cs" />
+    <Compile Include="Services\Interfaces\IFileIOServices.cs" />
     <Compile Include="Models\ToDoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

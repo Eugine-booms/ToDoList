@@ -1,7 +1,8 @@
 ﻿using System.Windows;
 using ToDoList.ViewModel;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace ToDoList
+namespace ToDoList.View
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
@@ -12,12 +13,13 @@ namespace ToDoList
         public MainWindow()
         {
             InitializeComponent();
+          
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         { 
-            if (this.DataContext is ToDoViewModel dc)
-            Create.DataContext = dc.Filtrator.DateFilter;    
+            //if (this.DataContext is ToDoViewModel dc)
+            //Create.DataContext = dc.Filtrator.DateFilter;    
         }
     }
 }

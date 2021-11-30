@@ -8,9 +8,9 @@ namespace ToDoList.BL.Services
     {
         private  string PATH;
 
-        public FileIOServices()
-        {
-        }
+        //public FileIOServices()
+        //{
+        //}
 
         public FileIOServices(string path)
         {
@@ -37,9 +37,10 @@ namespace ToDoList.BL.Services
                 var input = sr.ReadToEnd();
 
                 var result = JsonConvert.DeserializeObject<T>(input);
-                if(result == null) return new T();
+                if (result == null) return new T();
                 return result;
             }
+           // return new T();
         }
 
         public void SaveData(T data)

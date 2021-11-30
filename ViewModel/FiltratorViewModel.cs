@@ -5,8 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Markup;
-using ToDoList.BL.Helpers;
-using ToDoList.BL.Models;
+using ToDoList.Model;
+using ToDoList.Services.Helpers;
+using ToDoList.Servises.Helpers;
 
 namespace ToDoList.ViewModel
 {
@@ -87,7 +88,7 @@ namespace ToDoList.ViewModel
                 Set(ref text, value, nameof(Text));
             }
         }
-        public bool IsTrue(ToDoModel model)
+        public bool IsTrue(ToDoTask model)
         {
             var result = new bool[5];
            
