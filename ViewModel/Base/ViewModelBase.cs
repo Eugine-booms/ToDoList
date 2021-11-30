@@ -5,7 +5,7 @@ using System.Windows.Markup;
 
 namespace ToDoList.ViewModel.Base
 {
-    public class ViewModelBase : MarkupExtension, INotifyPropertyChanged
+    public abstract class ViewModelBase : MarkupExtension, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -18,8 +18,6 @@ namespace ToDoList.ViewModel.Base
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
         }
-
-
 
         protected virtual bool Set<T>(ref T field, T value, [CallerMemberName] string PropertyName = null)
         {

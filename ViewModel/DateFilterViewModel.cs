@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Markup;
-using ToDoList.BL.Models;
+using ToDoList.Services.Helpers;
 using ToDoList.ViewModel.Base;
 
 namespace ToDoList.ViewModel
@@ -12,13 +12,10 @@ namespace ToDoList.ViewModel
     [MarkupExtensionReturnType(typeof(DateFilterViewModel))]
     public class DateFilterViewModel : ViewModelBase
     {
-        public DateFilterViewModel(FiltratorViewModel mainViewModel)
+        public DateFilterViewModel()
         {
-            MainViewModel = mainViewModel ?? throw new ArgumentNullException(nameof(mainViewModel));
         }
-        public FiltratorViewModel MainViewModel { get; set; }
-
-
+        public FiltratorViewModel MainViewModel { get; internal set; }
         private DateTime selectedDate = DateTime.Now;
         private bool checkBoxDay;
         private bool checkboxWeek;

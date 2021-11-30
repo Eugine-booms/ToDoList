@@ -2,7 +2,9 @@
 {
     public interface IFileIOServices<T>
     {
+        
         T LoadData();
         void SaveData(T data);
+        bool SetPath(string path);
     }
 }

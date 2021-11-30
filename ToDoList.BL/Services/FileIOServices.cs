@@ -6,15 +6,19 @@ namespace ToDoList.BL.Services
 {
     public class FileIOServices<T> : IFileIOServices<T> where T: new()
     {
-        private readonly string PATH;
+        private  string PATH;
+
+        //public FileIOServices()
+        //{
+        //}
 
         public FileIOServices(string path)
         {
             PATH = path ?? throw new ArgumentNullException(nameof(path));
             if (!File.Exists(path))
             {
-                    //Directory.CreateDirectory("Data");
-                    File.Create(path).Dispose();
+                //Directory.CreateDirectory("Data");
+                File.Create(path).Dispose();
             }
 
         }
@@ -33,9 +37,10 @@ namespace ToDoList.BL.Services
                 var input = sr.ReadToEnd();
 
                 var result = JsonConvert.DeserializeObject<T>(input);
-                if(result == null) return new T();
+                if (result == null) return new T();
                 return result;
             }
+           // return new T();
         }
 
         public void SaveData(T data)
@@ -45,6 +50,16 @@ namespace ToDoList.BL.Services
                 string output = JsonConvert.SerializeObject(data);
                 sw.Write(output);
             }
+        }
+
+        public bool SetPath(string path)
+        {
+            if (!string.IsNullOrWhiteSpace(path))
+            {
+                PATH = path;
+                return true;
+            }
+            return false;
         }
     }
 

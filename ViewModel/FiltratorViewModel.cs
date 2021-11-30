@@ -5,8 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Markup;
-using ToDoList.BL.Helpers;
-using ToDoList.BL.Models;
+using ToDoList.Model;
+using ToDoList.Services.Helpers;
+using ToDoList.Servises.Helpers;
 
 namespace ToDoList.ViewModel
 {
@@ -24,13 +25,16 @@ namespace ToDoList.ViewModel
 
 
 
-        public FiltratorViewModel(ToDoViewModel mainViewModel)
+        public FiltratorViewModel(DateFilterViewModel creationDate, DateFilterViewModel dateOfEnd)
         {
-            MainViewModel = mainViewModel ?? throw new ArgumentNullException(nameof(mainViewModel));
-            DateFilter = new DateFilterViewModel(this);
-            DeadLineFilter = new DateFilterViewModel(this);
-            dateFilter.PropertyChanged += DateFilter_PropertyChanged;
-            deadLineFilter.PropertyChanged += DeadLineFilter_PropertyChanged;
+            DateFilter = creationDate;
+            DateFilter.MainViewModel=this;
+            DeadLineFilter = dateOfEnd;
+            deadLineFilter.MainViewModel = this;
+            DateFilter.PropertyChanged += DateFilter_PropertyChanged;
+            DeadLineFilter.PropertyChanged += DeadLineFilter_PropertyChanged;
+            OnPropertyChanged(nameof(DateFilter));
+            OnPropertyChanged(nameof(DeadLineFilter));
         }
 
         private void DateFilter_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -84,7 +88,7 @@ namespace ToDoList.ViewModel
                 Set(ref text, value, nameof(Text));
             }
         }
-        public bool IsTrue(ToDoModel model)
+        public bool IsTrue(ToDoTask model)
         {
             var result = new bool[5];
            
