@@ -83,6 +83,7 @@
                               SelectedIndex="{Binding SelectedTaskIndex}">
                         <DataGrid.Resources>
                             <ResourceDictionary>
+                                
                                 <ResourceDictionary.MergedDictionaries>
                                     <ResourceDictionary Source="../Resources/Styles/TexBoxStrikethrough.xaml"/>
                                 </ResourceDictionary.MergedDictionaries>
@@ -90,7 +91,7 @@
                         </DataGrid.Resources>
                         <DataGrid.Columns>
                             <DataGridTemplateColumn x:Name="CreationDate" SortMemberPath="CreationDate"
-                                                    Width="0.4*" IsReadOnly="True">
+                                                    Width="0.4*" MinWidth="150" MaxWidth="200" IsReadOnly="True">
                                 <DataGridTemplateColumn.Header>
                                     <StackPanel  Orientation="Horizontal">
                                         <TextBlock HorizontalAlignment="Center" 
@@ -109,7 +110,7 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTemplateColumn x:Name="IsDone" SortMemberPath="IsDone"
-                                                    Width="0.5*">
+                                                    Width="0.5*" MinWidth="150" MaxWidth="200">
                                 <DataGridTemplateColumn.Header>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Выполнение" Margin="5" />
@@ -141,7 +142,7 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTemplateColumn x:Name="ColumTask" SortMemberPath="Text" 
-                                                    Width="0.8*" MinWidth="100" MaxWidth="500">
+                                                    Width="0.8*" MinWidth="320" >
                                 <DataGridTemplateColumn.Header>
                                     <StackPanel HorizontalAlignment="Stretch">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -162,7 +163,8 @@
                                 </DataGridTemplateColumn.Header>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Text}" Style="{StaticResource TextBlockStrikethrough}"/>
+                                        <TextBlock Text="{Binding Text}"
+                                                   Style="{StaticResource TextBlockStrikethrough}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                                 <DataGridTemplateColumn.CellEditingTemplate >
@@ -171,7 +173,7 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellEditingTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn x:Name="EndDate" SortMemberPath="Deadline" Width="0.5*">
+                            <DataGridTemplateColumn x:Name="EndDate" SortMemberPath="Deadline" Width="0.5*" MinWidth="150" MaxWidth="200">
                                 <DataGridTemplateColumn.Header>
                                     <DockPanel>
                                         <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Center" 

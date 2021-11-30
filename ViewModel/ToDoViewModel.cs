@@ -26,15 +26,7 @@ namespace ToDoList.ViewModel
         /// <summary>
         /// Главная коллекция объектов расширенная ObservableCollection следящая за изменением своих свойств
         /// </summary> 
-        private ObservableCollectionEx<ToDoTask> todoList;
-        public ObservableCollectionEx<ToDoTask> TodoList
-        {
-            get => todoList;
-            set
-            {
-                Set(ref todoList, value, nameof(TodoList));
-            }
-        }
+        public ObservableCollectionEx<ToDoTask> TodoList { get; private set; }
         /// <summary>
         /// Прокси между V и VM
         /// </summary>

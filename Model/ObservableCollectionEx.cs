@@ -16,22 +16,12 @@ namespace ToDoList.Model
         public ObservableCollectionEx() : base()
         {
             CollectionChanged += new NotifyCollectionChangedEventHandler(ObservableCollectionEx_CollectionChanged);
-            PropertyChanged += ObservableCollectionEx_PropertyChanged;
-        }
-
-        private void ObservableCollectionEx_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            switch (e.PropertyName)
-            {
-                default:
-                    break;
-            }
+           
         }
 
         public ObservableCollectionEx(List<T> list)
         {
             CollectionChanged += new NotifyCollectionChangedEventHandler(ObservableCollectionEx_CollectionChanged);
-            PropertyChanged += ObservableCollectionEx_PropertyChanged;
             foreach (var item in list)
             {
                 Add(item);
@@ -57,12 +47,6 @@ namespace ToDoList.Model
                         item.PropertyChanged += EntityViewModelPropertyChanged;
                     }
                     break;
-                case NotifyCollectionChangedAction.Replace:
-                    break;
-                case NotifyCollectionChangedAction.Move:
-                    break;
-                case NotifyCollectionChangedAction.Reset:
-                    break;
                 default:
                     break;
             }
@@ -70,10 +54,6 @@ namespace ToDoList.Model
 
         private void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-           
-            //This will get called when the property of an object inside the collection changes - note you must make it a 'reset' - dunno why
-            //NotifyCollectionChangedEventArgs args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
-            //OnCollectionChanged(args);
             PropertyChangedEx?.Invoke(sender, e);
         }
     }

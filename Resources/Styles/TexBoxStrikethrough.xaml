@@ -2,7 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Style TargetType="TextBox" x:Key="TextBoxStrikethrough" x:Name="TextBoxStrikethrough">
-        <Setter Property="TextDecorations" Value="None"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="AcceptsReturn" Value="True"/>
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
         <Style.Triggers>
             <DataTrigger Binding="{Binding Path=IsDone}" Value="true">
                 <Setter Property="TextDecorations" Value="Strikethrough"/>
@@ -14,6 +16,7 @@
     </Style>
     <Style TargetType="TextBlock" x:Name="TextBlockStrikethrough" x:Key="TextBlockStrikethrough">
         <Setter Property="TextDecorations" Value="None"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
         <Style.Triggers>
             <DataTrigger Binding="{Binding Path=IsDone}" Value="true">
                 <Setter Property="TextDecorations" Value="Strikethrough"/>
@@ -23,5 +26,4 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
-   
 </ResourceDictionary>
